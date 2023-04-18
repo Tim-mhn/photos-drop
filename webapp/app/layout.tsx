@@ -1,6 +1,6 @@
 import "./globals.css";
-import Header from "./header";
-import SideNav from "./side-nav";
+import Header from "../components/header";
+import SideNav from "../components/side-nav";
 
 export const metadata = {
   title: "Create Next App",
