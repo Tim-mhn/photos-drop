@@ -6,6 +6,7 @@ import {
   photosRetriever,
 } from "../core/photos/use-cases/retrieve-all-photos.use-case";
 import { PhotoComponent } from "../components/photo";
+import { PhotosBulkActions } from "../components/photos-bulk-actions";
 
 export default function PhotosPage() {
   const photos = photosRetriever.retrieveAllPhotos();
@@ -20,16 +21,27 @@ export default function PhotosPage() {
     setSelectedPhotos(updatedSelectedPhotosIds);
   };
 
+  const unselectAllPhotos = () => setSelectedPhotos([]);
+
   return (
-    <div className="flex flex-grow h-full w-full grid grid-cols-6 gap-4 overflow-auto">
-      {photos.map((photo, n) => (
-        <PhotoComponent
-          photo={photo}
-          key={photo.id}
-          isSelected={listIncludesPhoto(selectedPhotos, photo)}
-          onSelectedToggle={togglePhotoSelection}
+    <div className="flex flex-col flex-grow h-full w-full overflow-auto gap-4 text-gray-800">
+      {selectedPhotos.length > 0 && (
+        <PhotosBulkActions
+          selectedPhotos={selectedPhotos}
+          onClearClick={unselectAllPhotos}
         />
-      ))}
+      )}
+
+      <div className="flex flex-grow  grid grid-cols-6 gap-4 overflow-auto">
+        {photos.map((photo, n) => (
+          <PhotoComponent
+            photo={photo}
+            key={photo.id}
+            isSelected={listIncludesPhoto(selectedPhotos, photo)}
+            onSelectedToggle={togglePhotoSelection}
+          />
+        ))}
+      </div>
     </div>
   );
 }

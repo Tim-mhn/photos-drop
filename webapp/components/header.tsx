@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Button } from "./button";
 
 export default function Header() {
   return (
@@ -11,9 +12,7 @@ export default function Header() {
         height={56}
       />
       <div className="flex flex-grow justify-end gap-8 ">
-        <button className="h-8  bg-fuchsia-600 hover:bg-fuchsia-700 hover:shadow-sm text-white p-3 flex justify-center font-semibold items-center text-center ">
-          Upload
-        </button>
+        <Button>Upload</Button>
         <div className="h-8 w-8 rounded-full bg-pink-400 text-white flex items-center justify-center text-base font-semibold">
           T
         </div>
