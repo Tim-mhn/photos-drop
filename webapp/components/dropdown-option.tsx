@@ -1,7 +1,7 @@
 import { Menu } from "@headlessui/react";
 import classNames from "classnames";
 
-export const DropdownOption = ({
+export const DropdownOptionCmp = ({
   onClick,
   children,
 }: {

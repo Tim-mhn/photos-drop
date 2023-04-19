@@ -2,23 +2,13 @@ import { Photos } from "../core/photos/use-cases/retrieve-all-photos.use-case";
 import { Button } from "./button";
 import Dropdown from "./dropdown";
 import { PlusIcon } from "@heroicons/react/20/solid";
-import { DropdownOption } from "./dropdown-option";
+import { DropdownOptionCmp } from "./dropdown-option";
+import DialogUI, { DialogTitle } from "./dialog";
+import { useState } from "react";
+import { Album, useAlbumsStore } from "../core/albums";
+import Image from "next/image";
+import { addPhotosToAlbum } from "../core/albums/add-photos-to-album/add-photos-to-album";
 
-enum PhotosBulkAction {
-  ADD_TO_GROUP,
-  CREATE_GROUP,
-}
-
-const options: { text: string; action: PhotosBulkAction }[] = [
-  {
-    action: PhotosBulkAction.ADD_TO_GROUP,
-    text: "Add to group",
-  },
-  {
-    action: PhotosBulkAction.CREATE_GROUP,
-    text: "Create group",
-  },
-];
 export const PhotosBulkActions = ({
   selectedPhotos,
   onClearClick,
@@ -26,6 +16,8 @@ export const PhotosBulkActions = ({
   selectedPhotos: Photos;
   onClearClick: () => void;
 }) => {
+  const albums = useAlbumsStore((state) => state.albums);
+  const [addToAlbumDialogOpen, setAddToAlbumDialogOpen] = useState(false);
   const trigger = (
     <PlusIcon className="h-8 w-8 hover:shadow-sm rounded-full hover:bg-gray-50" />
   );
@@ -40,13 +32,63 @@ export const PhotosBulkActions = ({
 
       <div className="flex flex-grow justify-end">
         <Dropdown trigger={trigger}>
-          {options.map((opt) => (
-            <DropdownOption key={opt.action} onClick={() => {}}>
-              {opt.text}
-            </DropdownOption>
-          ))}
+          <DropdownOptionCmp onClick={() => setAddToAlbumDialogOpen(true)}>
+            Add to group
+          </DropdownOptionCmp>
+          <DropdownOptionCmp onClick={() => {}}>Create group</DropdownOptionCmp>
         </Dropdown>
       </div>
+      <AddPhotosToAlbumDialog
+        open={addToAlbumDialogOpen}
+        close={() => setAddToAlbumDialogOpen(false)}
+        albums={albums}
+        onAlbumClick={(album) =>
+          addPhotosToAlbum({ album, photos: selectedPhotos })
+        }
+      />
     </div>
+  );
+};
+
+export const AddPhotosToAlbumDialog = ({
+  open,
+  close,
+  albums,
+  onAlbumClick,
+}: {
+  albums: Album[];
+  open: boolean;
+  close: () => void;
+  onAlbumClick: (album: Album) => void;
+}) => {
+  return (
+    <DialogUI
+      open={open}
+      close={close}
+      title={
+        <DialogTitle>
+          <div className="px-4">Add to</div>
+        </DialogTitle>
+      }
+    >
+      <div className="flex flex-col items-start gap-1">
+        {albums.map((a) => (
+          <div
+            key={a.id}
+            className="flex gap-3 items-center flex-grow w-full px-4 py-3 hover:bg-pink-50 cursor-pointer"
+            onClick={() => onAlbumClick(a)}
+          >
+            <Image
+              src={a.coverPhoto}
+              alt={a.name}
+              height={40}
+              width={40}
+              className="h-10 w-10"
+            />
+            <div className="font-semibold text-sm text-gray-700">{a.name}</div>
+          </div>
+        ))}
+      </div>
+    </DialogUI>
   );
 };

@@ -1,6 +1,5 @@
 import React, { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
-import { DropdownOption } from "./dropdown-option";
 
 export type DropdownOption = string;
 export type DropdownOptions = DropdownOption[];

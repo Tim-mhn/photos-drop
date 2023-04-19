@@ -20,8 +20,10 @@ export default function RootLayout({
 
           <div className="flex flex-grow overflow-hidden">
             <SideNav />
-            <div className="p-4 flex flex-grow justify-center items-center overflow-auto">
-              {children}
+            <div className="flex h-full flex-grow items-center overflow-hidden">
+              <div className="p-4 h-full flex flex-grow justify-center items-center overflow-auto">
+                {children}
+              </div>
             </div>
           </div>
         </div>
