@@ -29,7 +29,6 @@ export function buildAlbumsStore({
       return getAlbumById({ albums: allAlbums, id });
     },
     createAlbum: (name: string) => {
-      console.group("album created !");
       const newAlbum: Album = {
         name,
         id: randomId(),
@@ -37,8 +36,6 @@ export function buildAlbumsStore({
         itemsCount: 0,
       };
       const currentAlbums = get().albums;
-      console.log(newAlbum);
-      console.groupEnd();
       set({
         albums: [...currentAlbums, newAlbum],
       });
