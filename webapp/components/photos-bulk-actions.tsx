@@ -1,9 +1,9 @@
 import { Photos } from "../core/photos/use-cases/retrieve-all-photos.use-case";
-import { Button } from "./button";
-import Dropdown from "./dropdown";
+import { Button } from "./shared";
+import Dropdown from "./shared/dropdown";
 import { PlusIcon } from "@heroicons/react/20/solid";
-import { DropdownOptionCmp } from "./dropdown-option";
-import DialogUI, { DialogTitle } from "./dialog";
+import { DropdownOptionCmp } from "./shared";
+import { DialogUI, DialogTitle } from "./shared";
 import { useState } from "react";
 import { Album, useAlbumsStore } from "../core/albums";
 import Image from "next/image";
@@ -21,6 +21,8 @@ export const PhotosBulkActions = ({
   const trigger = (
     <PlusIcon className="h-8 w-8 hover:shadow-sm rounded-full hover:bg-gray-50" />
   );
+
+  const closeAddToAlbumDialog = () => setAddToAlbumDialogOpen(false);
 
   return (
     <div className="px-2 flex flex-grow items-center gap-4 text-fuchsia-600">
@@ -40,11 +42,12 @@ export const PhotosBulkActions = ({
       </div>
       <AddPhotosToAlbumDialog
         open={addToAlbumDialogOpen}
-        close={() => setAddToAlbumDialogOpen(false)}
+        close={closeAddToAlbumDialog}
         albums={albums}
-        onAlbumClick={(album) =>
-          addPhotosToAlbum({ album, photos: selectedPhotos })
-        }
+        onAlbumClick={(album) => {
+          addPhotosToAlbum({ album, photos: selectedPhotos });
+          closeAddToAlbumDialog();
+        }}
       />
     </div>
   );

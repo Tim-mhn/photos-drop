@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Button } from "./button";
+import { Button } from "./shared";
 
 export default function Header() {
   return (

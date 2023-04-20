@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 /* eslint-disable @next/next/no-img-element */
-import { Divider } from "../../components/divider";
+import { Divider } from "../../components";
 import { useAlbumsStore } from "../../core/albums/store";
 
 export default function AlbumsPage() {

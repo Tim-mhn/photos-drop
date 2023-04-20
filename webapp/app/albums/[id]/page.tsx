@@ -1,7 +1,8 @@
 "use client";
-/* eslint-disable @next/next/no-img-element */
+import { Divider } from "../../../components";
+import { PhotosList } from "../../../components/photos-list/photos-list";
 
-import { Album } from "../../../core/albums";
+import { useAlbumsStore } from "../../../core/albums";
 import { getAlbumPhotos } from "../../../core/albums/add-photos-to-album";
 
 export default function AlbumPhotosPage({
@@ -9,22 +10,19 @@ export default function AlbumPhotosPage({
 }: {
   params: { id: string };
 }) {
-  const photos = getAlbumPhotos({ id: params.id } as any as Album);
+  const albumsStore = useAlbumsStore();
+  const album = albumsStore.getAlbumById(params.id);
+  const photos = getAlbumPhotos(album);
   return (
-    <div className="flex flex-col w-full h-full justify-start ">
-      <div>album {params.id}</div>
+    <div className="flex flex-col w-full h-full justify-start gap-6">
+      <div className="text-4xl text-fuchsia-600 font-semibold">
+        Album {params.id}
+      </div>
 
-      <div className="flex flex-row gap-4 flex-wrap">
-        {photos.map((p) => (
-          <img
-            key={p.id}
-            src={p.url}
-            alt=""
-            width={40}
-            height={40}
-            className="h-10 w-10 aspect-auto"
-          />
-        ))}
+      <Divider />
+
+      <div>
+        <PhotosList photos={photos} />
       </div>
     </div>
   );

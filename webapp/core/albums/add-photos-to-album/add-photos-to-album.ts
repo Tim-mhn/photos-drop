@@ -42,7 +42,9 @@ export class AlbumsPhotosRepository {
   }
 
   getAlbumPhotos(album: Album): Photos {
-    return this.albumsPhotos[album.id] || [];
+    console.log("getAlbumPhotos");
+    console.log(album);
+    return this.albumsPhotos[album?.id] || [];
   }
 }
 

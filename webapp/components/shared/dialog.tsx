@@ -1,3 +1,4 @@
+"use client";
 import { Dialog, Transition } from "@headlessui/react";
 import React, { Fragment } from "react";
 export const DialogTitle = ({ children }: { children: React.ReactNode }) => {
@@ -10,7 +11,7 @@ export const DialogTitle = ({ children }: { children: React.ReactNode }) => {
     </Dialog.Title>
   );
 };
-export default function DialogUI({
+export function DialogUI({
   open,
   close,
   title,
