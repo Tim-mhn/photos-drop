@@ -41,18 +41,18 @@ describe("addPhotosToAlbum", () => {
     const initialPhotos: Photos = [
       {
         id: "photo1",
-        url: "",
+        url: "photo1.jpeg",
       },
       {
         id: "photo2",
-        url: "",
+        url: "photo2.jpeg",
       },
     ];
 
     const newPhotos: Photos = [
       {
         id: "photo3",
-        url: "",
+        url: "photo1.jpeg",
       },
       {
         id: "photo4",
@@ -66,5 +66,44 @@ describe("addPhotosToAlbum", () => {
 
     const albumPhotos = repo.getAlbumPhotos(album);
     expect(albumPhotos).toEqual([...initialPhotos, ...newPhotos]);
+  });
+
+  it("should not double-add photos which are already in the album", () => {
+    const repo = new AlbumsPhotosRepository();
+
+    const album: Album = {
+      coverPhoto: "",
+      id: "album1",
+      itemsCount: 0,
+      name: "Album 1",
+    };
+    const initialPhotos: Photos = [
+      {
+        id: "photo1",
+        url: "",
+      },
+      {
+        id: "photo2",
+        url: "",
+      },
+    ];
+
+    const newPhotos: Photos = [
+      {
+        id: "photo1",
+        url: "",
+      },
+      {
+        id: "photo3",
+        url: "",
+      },
+    ];
+
+    repo.addPhotosToAlbum({ photos: initialPhotos, album });
+
+    repo.addPhotosToAlbum({ photos: newPhotos, album });
+
+    const albumPhotosIds = repo.getAlbumPhotos(album).map((p) => p.id);
+    expect(albumPhotosIds).toEqual(["photo1", "photo2", "photo3"]);
   });
 });

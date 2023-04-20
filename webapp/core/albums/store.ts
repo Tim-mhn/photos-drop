@@ -1,7 +1,6 @@
 import { create } from "zustand";
 import { Album } from "./album";
-
-const randomId = () => (Math.random() + 1).toString(36).substring(7);
+import { randomId } from "../../shared/utils";
 
 const initialAlbums: Album[] = new Array(14).fill("").map((_, n) => ({
   name: "Interrail 2023",

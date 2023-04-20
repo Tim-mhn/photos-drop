@@ -1,4 +1,5 @@
-export type Photo = { id: string; url: string };
+export type PhotoUrl = string;
+export type Photo = { id: string; url: PhotoUrl };
 export type Photos = Photo[];
 
 export const photosRetriever = {
