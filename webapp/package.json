@@ -20,6 +20,7 @@
     "classnames": "^2.3.2",
     "eslint": "8.38.0",
     "eslint-config-next": "13.3.0",
+    "formik": "^2.2.9",
     "next": "13.3.0",
     "postcss": "8.4.22",
     "react": "18.2.0",
@@ -27,6 +28,7 @@
     "react-redux": "^8.0.5",
     "tailwindcss": "3.3.1",
     "typescript": "5.0.4",
+    "yup": "^1.1.1",
     "zustand": "^4.3.7"
   },
   "devDependencies": {

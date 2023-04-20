@@ -14,6 +14,7 @@ export type AlbumsStore = ReturnType<typeof buildAlbumsStore>;
 export type AlbumsStoreState = {
   albums: Album[];
   getAlbumById: (id: string) => Album;
+  createAlbum: (name: string) => void;
 };
 
 export function buildAlbumsStore({
@@ -21,11 +22,26 @@ export function buildAlbumsStore({
 }: {
   initialAlbums: Album[];
 }) {
-  return create<AlbumsStoreState>((_, get) => ({
+  return create<AlbumsStoreState>((set, get) => ({
     albums: initialAlbums,
     getAlbumById: (id: string) => {
       const allAlbums = get().albums;
       return getAlbumById({ albums: allAlbums, id });
+    },
+    createAlbum: (name: string) => {
+      console.group("album created !");
+      const newAlbum: Album = {
+        name,
+        id: randomId(),
+        coverPhoto: "",
+        itemsCount: 0,
+      };
+      const currentAlbums = get().albums;
+      console.log(newAlbum);
+      console.groupEnd();
+      set({
+        albums: [...currentAlbums, newAlbum],
+      });
     },
   }));
 }

@@ -1,6 +1,5 @@
 import { Photos } from "../core/photos/use-cases/retrieve-all-photos.use-case";
-import { Button } from "./shared";
-import Dropdown from "./shared/dropdown";
+import { Button, Dropdown } from "./shared";
 import { PlusIcon } from "@heroicons/react/20/solid";
 import { DropdownOptionCmp } from "./shared";
 import { DialogUI, DialogTitle } from "./shared";

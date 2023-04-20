@@ -2,9 +2,7 @@
 import React, { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 
-export type DropdownOption = string;
-export type DropdownOptions = DropdownOption[];
-export default function Dropdown({
+export function Dropdown({
   children,
   trigger,
 }: {
