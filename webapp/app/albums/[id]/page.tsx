@@ -1,9 +1,9 @@
 "use client";
-import { Divider } from "../../../components";
+import { Divider } from "../../../components/shared";
 import { PhotosList } from "../../../components/photos-list/photos-list";
 
 import { useAlbumsStore } from "../../../core/albums";
-import { getAlbumPhotos } from "../../../core/albums/add-photos-to-album";
+import { getAlbumPhotos } from "../../../core/album-photos";
 
 export default function AlbumPhotosPage({
   params,
@@ -11,12 +11,14 @@ export default function AlbumPhotosPage({
   params: { id: string };
 }) {
   const albumsStore = useAlbumsStore();
-  const album = albumsStore.getAlbumById(params.id);
-  const photos = getAlbumPhotos(album);
+  const albumId = params.id;
+  const photos = getAlbumPhotos({ albumId });
+  const album = albumsStore.getAlbumById(albumId);
+
   return (
     <div className="flex flex-col w-full h-full justify-start gap-6">
       <div className="text-4xl text-fuchsia-600 font-semibold">
-        Album {params.id}
+        {album.name}
       </div>
 
       <Divider />

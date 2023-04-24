@@ -1,8 +1,5 @@
 import { useState } from "react";
-import {
-  Photo,
-  Photos,
-} from "../../core/photos/use-cases/retrieve-all-photos.use-case";
+import { Photo, Photos } from "../../core/photos";
 import { PhotoComponent } from "../photo";
 import { PhotosBulkActions } from "../photos-bulk-actions";
 

@@ -16,58 +16,60 @@ export const CreateAlbumButton = () => {
 
   const openDialog = () => setOpen(true);
   const closeDialog = () => setOpen(false);
+
+  const CreateAlbumDialog = () => (
+    <DialogUI
+      close={closeDialog}
+      open={open}
+      title={
+        <DialogTitle>
+          <div className="flex flex-grow justify-center mt-2">Create album</div>
+        </DialogTitle>
+      }
+    >
+      <div className="px-4 pt-2 flex flex-col gap-3">
+        <Formik
+          initialValues={{ name: "" }}
+          validationSchema={newGroupSchema}
+          onSubmit={({ name }) => {
+            albumsStore.createAlbum(name);
+            closeDialog();
+          }}
+        >
+          {({ values, handleChange, handleBlur, isValid }) => (
+            <Form>
+              <div className="flex flex-col gap-3">
+                <div>
+                  <Input
+                    name="name"
+                    label="Name"
+                    value={values.name}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+
+                  <ErrorMessageWrapper name="name" />
+                </div>
+
+                <div className="flex flex-grow justify-end">
+                  <Button type="submit" disabled={!isValid}>
+                    Create
+                  </Button>
+                </div>
+              </div>
+            </Form>
+          )}
+        </Formik>
+      </div>
+    </DialogUI>
+  );
   return (
     <>
       <Button style="simple" size="sm" onClick={openDialog}>
         Create album
       </Button>
 
-      <DialogUI
-        close={closeDialog}
-        open={open}
-        title={
-          <DialogTitle>
-            <div className="flex flex-grow justify-center mt-2">
-              Create album
-            </div>
-          </DialogTitle>
-        }
-      >
-        <div className="px-4 pt-2 flex flex-col gap-3">
-          <Formik
-            initialValues={{ name: "" }}
-            validationSchema={newGroupSchema}
-            onSubmit={({ name }) => {
-              albumsStore.createAlbum(name);
-              closeDialog();
-            }}
-          >
-            {({ values, handleChange, handleBlur, isValid }) => (
-              <Form>
-                <div className="flex flex-col gap-3">
-                  <div>
-                    <Input
-                      name="name"
-                      label="Name"
-                      value={values.name}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                    />
-
-                    <ErrorMessageWrapper name="name" />
-                  </div>
-
-                  <div className="flex flex-grow justify-end">
-                    <Button type="submit" disabled={!isValid}>
-                      Create
-                    </Button>
-                  </div>
-                </div>
-              </Form>
-            )}
-          </Formik>
-        </div>
-      </DialogUI>
+      <CreateAlbumDialog />
     </>
   );
 };

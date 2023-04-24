@@ -1,6 +1,7 @@
 import { create } from "zustand";
-import { Album } from "./album";
-import { randomId } from "../../shared/utils";
+import { Album } from "../entities/album";
+import { randomId } from "../../../shared/utils";
+import { Photos } from "../../photos";
 
 const initialAlbums: Album[] = new Array(14).fill("").map((_, n) => ({
   name: "Interrail 2023",
@@ -14,7 +15,7 @@ export type AlbumsStore = ReturnType<typeof buildAlbumsStore>;
 export type AlbumsStoreState = {
   albums: Album[];
   getAlbumById: (id: string) => Album;
-  createAlbum: (name: string) => void;
+  createAlbum: (name: string, initialPhotos?: { photos: Photos }) => void;
 };
 
 export function buildAlbumsStore({
@@ -28,14 +29,21 @@ export function buildAlbumsStore({
       const allAlbums = get().albums;
       return getAlbumById({ albums: allAlbums, id });
     },
-    createAlbum: (name: string) => {
+    createAlbum: (
+      name: string,
+      initialPhotos: { photos: Photos } = { photos: [] }
+    ) => {
+      const { photos } = initialPhotos;
+      const currentAlbums = get().albums;
+
       const newAlbum: Album = {
         name,
         id: randomId(),
-        coverPhoto: "",
-        itemsCount: 0,
+        coverPhoto: `https://picsum.photos/id/${
+          currentAlbums.length + 1
+        }/250/250`,
+        itemsCount: photos?.length,
       };
-      const currentAlbums = get().albums;
       set({
         albums: [...currentAlbums, newAlbum],
       });

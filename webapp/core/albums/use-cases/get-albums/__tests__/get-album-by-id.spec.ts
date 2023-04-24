@@ -1,5 +1,5 @@
-import { Album } from "../../album";
-import { buildAlbumsStore } from "../../store";
+import { Album } from "../../../entities";
+import { buildAlbumsStore } from "../../../infrastructure";
 
 describe("getAlbumById", () => {
   it("should return the right album by id", () => {

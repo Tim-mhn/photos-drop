@@ -1,8 +1,8 @@
 "use client";
 import Link from "next/link";
 /* eslint-disable @next/next/no-img-element */
-import { Divider } from "../../components";
-import { useAlbumsStore } from "../../core/albums/store";
+import { Divider } from "../../components/shared";
+import { useAlbumsStore } from "../../core/albums/infrastructure/store";
 import { Album } from "../../core/albums";
 import { CreateAlbumButton } from "../../components/create-album/create-album-button";
 

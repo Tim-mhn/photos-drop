@@ -6,7 +6,7 @@ import { DialogUI, DialogTitle } from "./shared";
 import { useState } from "react";
 import { Album, useAlbumsStore } from "../core/albums";
 import Image from "next/image";
-import { addPhotosToAlbum } from "../core/albums/add-photos-to-album/add-photos-to-album";
+import { addPhotosToAlbum } from "../core/album-photos/use-cases/add-photos-to-album";
 
 export const PhotosBulkActions = ({
   selectedPhotos,
@@ -34,9 +34,9 @@ export const PhotosBulkActions = ({
       <div className="flex flex-grow justify-end">
         <Dropdown trigger={trigger}>
           <DropdownOptionCmp onClick={() => setAddToAlbumDialogOpen(true)}>
-            Add to group
+            Add to album
           </DropdownOptionCmp>
-          <DropdownOptionCmp onClick={() => {}}>Create group</DropdownOptionCmp>
+          <DropdownOptionCmp onClick={() => {}}>Create album</DropdownOptionCmp>
         </Dropdown>
       </div>
       <AddPhotosToAlbumDialog

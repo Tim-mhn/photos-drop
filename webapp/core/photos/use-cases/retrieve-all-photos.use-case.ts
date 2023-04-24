@@ -1,7 +1,3 @@
-export type PhotoUrl = string;
-export type Photo = { id: string; url: PhotoUrl };
-export type Photos = Photo[];
-
 export const photosRetriever = {
   retrieveAllPhotos: () =>
     new Array(30).fill("").map((_, n) => ({
