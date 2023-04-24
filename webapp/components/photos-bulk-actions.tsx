@@ -7,6 +7,7 @@ import { useState } from "react";
 import { Album, useAlbumsStore } from "../core/albums";
 import Image from "next/image";
 import { addPhotosToAlbum } from "../core/album-photos/use-cases/add-photos-to-album";
+import { CreateAlbumDialog } from "./create-album/create-album-button";
 
 export const PhotosBulkActions = ({
   selectedPhotos,
@@ -17,6 +18,7 @@ export const PhotosBulkActions = ({
 }) => {
   const albums = useAlbumsStore((state) => state.albums);
   const [addToAlbumDialogOpen, setAddToAlbumDialogOpen] = useState(false);
+  const [createAlbumDialogOpen, setCreateAlbumDialogOpen] = useState(false);
   const trigger = (
     <PlusIcon className="h-8 w-8 hover:shadow-sm rounded-full hover:bg-gray-50" />
   );
@@ -36,7 +38,9 @@ export const PhotosBulkActions = ({
           <DropdownOptionCmp onClick={() => setAddToAlbumDialogOpen(true)}>
             Add to album
           </DropdownOptionCmp>
-          <DropdownOptionCmp onClick={() => {}}>Create album</DropdownOptionCmp>
+          <DropdownOptionCmp onClick={() => setCreateAlbumDialogOpen(true)}>
+            Create album
+          </DropdownOptionCmp>
         </Dropdown>
       </div>
       <AddPhotosToAlbumDialog
@@ -47,6 +51,12 @@ export const PhotosBulkActions = ({
           addPhotosToAlbum({ album, photos: selectedPhotos });
           closeAddToAlbumDialog();
         }}
+      />
+
+      <CreateAlbumDialog
+        open={createAlbumDialogOpen}
+        closeDialog={() => setCreateAlbumDialogOpen(false)}
+        selectedPhotos={selectedPhotos}
       />
     </div>
   );

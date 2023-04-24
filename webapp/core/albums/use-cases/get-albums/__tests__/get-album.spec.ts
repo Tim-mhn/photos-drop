@@ -1,10 +1,12 @@
+import { buildAlbumPhotosStore } from "../../../../album-photos";
 import { Album } from "../../../entities";
 import { buildAlbumsStore } from "../../../infrastructure";
 
 describe("getAlbums", () => {
   it("should initially returned an empty list", () => {
-    const store = buildAlbumsStore({ initialAlbums: [] });
+    const albumPhotosStore = buildAlbumPhotosStore();
 
+    const store = buildAlbumsStore({ initialAlbums: [], albumPhotosStore });
     expect(store.getState().albums).toEqual([]);
   });
 
@@ -23,8 +25,9 @@ describe("getAlbums", () => {
         name: "Album 2",
       },
     ];
+    const albumPhotosStore = buildAlbumPhotosStore();
 
-    const store = buildAlbumsStore({ initialAlbums: albums });
+    const store = buildAlbumsStore({ initialAlbums: albums, albumPhotosStore });
 
     expect(store.getState().albums).toEqual([
       {

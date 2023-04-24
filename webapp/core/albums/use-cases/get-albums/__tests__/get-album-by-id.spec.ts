@@ -1,3 +1,4 @@
+import { buildAlbumPhotosStore } from "../../../../album-photos";
 import { Album } from "../../../entities";
 import { buildAlbumsStore } from "../../../infrastructure";
 
@@ -11,7 +12,9 @@ describe("getAlbumById", () => {
         name: "Album 1",
       },
     ];
-    const store = buildAlbumsStore({ initialAlbums });
+    const albumPhotosStore = buildAlbumPhotosStore();
+
+    const store = buildAlbumsStore({ initialAlbums, albumPhotosStore });
     const albumId = "album1";
 
     expect(store.getState().getAlbumById(albumId)).toEqual({
@@ -31,7 +34,9 @@ describe("getAlbumById", () => {
         name: "Album 1",
       },
     ];
-    const store = buildAlbumsStore({ initialAlbums });
+    const albumPhotosStore = buildAlbumPhotosStore();
+
+    const store = buildAlbumsStore({ initialAlbums, albumPhotosStore });
     const albumId = "id-does-not-exist";
 
     expect(() => store.getState().getAlbumById(albumId)).toThrow();

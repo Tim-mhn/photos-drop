@@ -11,7 +11,11 @@ export function buildAlbumPhotosStore(): { getState(): AlbumPhotosStore } {
   const store = create<AlbumPhotoStoreState>((set, get) => ({
     albumPhotosMap: new Map<AlbumId, Photos>(),
     getAlbumPhotos: ({ albumId }: { albumId: string }) => {
-      return get().albumPhotosMap.get(albumId) || [];
+      console.group("getAlbumPhotos");
+      const albumsPhotosMap = get().albumPhotosMap;
+      console.log(albumsPhotosMap);
+      console.groupEnd();
+      return albumsPhotosMap.get(albumId) || [];
     },
     addPhotosToAlbum: ({
       albumId,

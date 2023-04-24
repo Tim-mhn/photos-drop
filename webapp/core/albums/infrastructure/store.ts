@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { Album } from "../entities/album";
 import { randomId } from "../../../shared/utils";
 import { Photos } from "../../photos";
-
+import { albumPhotosStore, buildAlbumPhotosStore } from "../../album-photos";
 const initialAlbums: Album[] = new Array(14).fill("").map((_, n) => ({
   name: "Interrail 2023",
   itemsCount: 300,
@@ -20,8 +20,10 @@ export type AlbumsStoreState = {
 
 export function buildAlbumsStore({
   initialAlbums,
+  albumPhotosStore,
 }: {
   initialAlbums: Album[];
+  albumPhotosStore: ReturnType<typeof buildAlbumPhotosStore>;
 }) {
   return create<AlbumsStoreState>((set, get) => ({
     albums: initialAlbums,
@@ -47,6 +49,11 @@ export function buildAlbumsStore({
       set({
         albums: [...currentAlbums, newAlbum],
       });
+
+      albumPhotosStore.getState().addPhotosToAlbum({
+        albumId: newAlbum.id,
+        photos,
+      });
     },
   }));
 }
@@ -58,4 +65,7 @@ function getAlbumById({ albums, id }: { albums: Album[]; id: string }): Album {
 
   return album;
 }
-export const useAlbumsStore = buildAlbumsStore({ initialAlbums });
+export const useAlbumsStore = buildAlbumsStore({
+  initialAlbums,
+  albumPhotosStore: albumPhotosStore,
+});

@@ -5,19 +5,22 @@ import { Form, Formik } from "formik";
 import { Input } from "../shared/input";
 import { object, string } from "yup";
 import { useAlbumsStore } from "../../core/albums";
-
+import { Photos } from "../../core/photos";
 const newGroupSchema = object().shape({
   name: string().min(1).required(),
 });
-export const CreateAlbumButton = () => {
+export const CreateAlbumDialog = ({
+  closeDialog,
+  open,
+  selectedPhotos,
+}: {
+  closeDialog: () => void;
+  open: boolean;
+  selectedPhotos: Photos;
+}) => {
   const albumsStore = useAlbumsStore();
 
-  const [open, setOpen] = useState(false);
-
-  const openDialog = () => setOpen(true);
-  const closeDialog = () => setOpen(false);
-
-  const CreateAlbumDialog = () => (
+  return (
     <DialogUI
       close={closeDialog}
       open={open}
@@ -32,7 +35,7 @@ export const CreateAlbumButton = () => {
           initialValues={{ name: "" }}
           validationSchema={newGroupSchema}
           onSubmit={({ name }) => {
-            albumsStore.createAlbum(name);
+            albumsStore.createAlbum(name, { photos: selectedPhotos });
             closeDialog();
           }}
         >
@@ -63,13 +66,36 @@ export const CreateAlbumButton = () => {
       </div>
     </DialogUI>
   );
+};
+// todo: check why create album dialog closes instantaneously
+
+export const CreateAlbumButton = (
+  { selectedPhotos }: { selectedPhotos: Photos } = {
+    selectedPhotos: [],
+  }
+) => {
+  const [open, setOpen] = useState(false);
+
+  const openDialog = () => {
+    setOpen(true);
+    console.log("open dialog called");
+  };
+  const closeDialog = () => {
+    console.log("clsoe dialog called");
+    setOpen(false);
+  };
+
   return (
     <>
       <Button style="simple" size="sm" onClick={openDialog}>
         Create album
       </Button>
 
-      <CreateAlbumDialog />
+      <CreateAlbumDialog
+        closeDialog={closeDialog}
+        open={open}
+        selectedPhotos={selectedPhotos}
+      />
     </>
   );
 };
