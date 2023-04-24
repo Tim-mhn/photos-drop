@@ -1,4 +1,3 @@
-import { Photos } from "../core/photos/use-cases/retrieve-all-photos.use-case";
 import { Button, Dropdown } from "./shared";
 import { PlusIcon } from "@heroicons/react/20/solid";
 import { DropdownOptionCmp } from "./shared";
@@ -7,8 +6,10 @@ import { useState } from "react";
 import { Album, useAlbumsStore } from "../core/albums";
 import Image from "next/image";
 import { addPhotosToAlbum } from "../core/album-photos/use-cases/add-photos-to-album";
-import { CreateAlbumDialog } from "./create-album/create-album-button";
+import { CreateAlbumDialog } from "./create-album/create-album-dialog";
+import { Photos } from "../core/photos";
 
+//todo: unselect photos after adding to / creating album !
 export const PhotosBulkActions = ({
   selectedPhotos,
   onClearClick,
