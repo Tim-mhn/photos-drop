@@ -13,7 +13,6 @@ export default function AlbumPhotosPage({
   const albumsStore = useAlbumsStore();
   const albumId = params.id;
   const photos = getAlbumPhotos({ albumId });
-  console.log(photos);
   const album = albumsStore.getAlbumById(albumId);
 
   return (

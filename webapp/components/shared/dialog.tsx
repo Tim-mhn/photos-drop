@@ -1,5 +1,6 @@
 "use client";
 import { Dialog, Transition } from "@headlessui/react";
+import classNames from "classnames";
 import React, { Fragment } from "react";
 export const DialogTitle = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -11,17 +12,32 @@ export const DialogTitle = ({ children }: { children: React.ReactNode }) => {
     </Dialog.Title>
   );
 };
+
+type DialogProps = {
+  open: boolean;
+  close: () => void;
+  title: React.ReactNode;
+  children?: React.ReactNode;
+  fullScreen?: boolean;
+  color?: "light" | "dark";
+};
 export function DialogUI({
   open,
   close,
   title,
   children,
-}: {
-  open: boolean;
-  close: () => void;
-  title: React.ReactNode;
-  children?: React.ReactNode;
-}) {
+  fullScreen,
+  color: _color,
+}: DialogProps) {
+  const color = _color || "light";
+  const dialogPanelClasses = classNames({
+    "relative transform overflow-hidden  py-2  text-left shadow-xl transition-all ":
+      true,
+    " sm:w-full sm:max-w-sm rounded-lg": !fullScreen,
+    "w-screen h-screen flex flex-col items-center justify-center": fullScreen,
+    "bg-white": color == "light",
+    "bg-black opacity-90": color === "dark",
+  });
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={close}>
@@ -48,10 +64,16 @@ export function DialogUI({
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white py-2  text-left shadow-xl transition-all  sm:w-full sm:max-w-sm ">
+              <Dialog.Panel className={dialogPanelClasses}>
                 {title}
 
-                <div className="mt-2 max-h-96 overflow-auto">{children}</div>
+                {fullScreen ? (
+                  <div className="w-full h-full flex items-center justify-center">
+                    {children}
+                  </div>
+                ) : (
+                  <div className="mt-2 max-h-96 overflow-auto">{children}</div>
+                )}
               </Dialog.Panel>
             </Transition.Child>
           </div>

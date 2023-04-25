@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
-import { Photo } from "../core/photos/use-cases/retrieve-all-photos.use-case";
+import { Photo } from "../core/photos";
 
 export function PhotoComponent({
   photo,
@@ -31,7 +31,10 @@ export function PhotoComponent({
           (isSelected ? "bg-blue-300" : "")
         }
         aria-checked={isSelected}
-        onClick={() => onSelectedToggle(photo)}
+        onClick={(event) => {
+          event.stopPropagation();
+          onSelectedToggle(photo);
+        }}
       ></div>
     </div>
   );

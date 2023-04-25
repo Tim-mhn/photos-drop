@@ -1,7 +1,9 @@
+/* eslint-disable @next/next/no-img-element */
 import { useState } from "react";
 import { Photo, Photos } from "../../core/photos";
 import { PhotoComponent } from "../photo";
 import { PhotosBulkActions } from "../photos-bulk-actions";
+import { FullScreenPhotoGallery } from "../full-screen-photo-gallery/full-screen-photo-gallery";
 
 type PhotosListProps = {
   photos: Photos;
@@ -18,6 +20,18 @@ export const PhotosList = ({ photos }: PhotosListProps) => {
   };
 
   const unselectAllPhotos = () => setSelectedPhotos([]);
+
+  const [fullScreenPhoto, setFullScreenPhoto] = useState<Photo | undefined>(
+    undefined
+  );
+
+  const [fullScreenGalleryOpen, setFullScreenGalleryOpen] = useState(false);
+
+  const openFullScreenGalleryWithInitialPhoto = (photo: Photo) => {
+    setFullScreenPhoto(photo);
+    setFullScreenGalleryOpen(true);
+  };
+
   return (
     <div className="flex flex-col flex-grow h-full w-full overflow-auto gap-4 text-gray-800">
       {selectedPhotos.length > 0 && (
@@ -30,14 +44,26 @@ export const PhotosList = ({ photos }: PhotosListProps) => {
 
       <div className="flex flex-grow  grid grid-cols-6 gap-4 overflow-auto">
         {photos.map((photo, n) => (
-          <PhotoComponent
-            photo={photo}
+          <div
+            onClick={() => openFullScreenGalleryWithInitialPhoto(photo)}
             key={photo.id}
-            isSelected={listIncludesPhoto(selectedPhotos, photo)}
-            onSelectedToggle={togglePhotoSelection}
-          />
+          >
+            <PhotoComponent
+              photo={photo}
+              isSelected={listIncludesPhoto(selectedPhotos, photo)}
+              onSelectedToggle={togglePhotoSelection}
+            />
+          </div>
         ))}
       </div>
+
+      <FullScreenPhotoGallery
+        fullScreenPhoto={fullScreenPhoto}
+        setFullScreenPhoto={setFullScreenPhoto}
+        allPhotos={photos}
+        open={fullScreenGalleryOpen}
+        close={() => setFullScreenGalleryOpen(false)}
+      />
     </div>
   );
 };

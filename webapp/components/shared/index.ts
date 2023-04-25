@@ -1,6 +1,7 @@
 export * from "./button";
-export * from "./dialog";
-export * from "./divider";
-export * from "./dropdown";
-export * from "./dropdown-option";
-export * from "./error-message-wrapper";
+export { DialogTitle, DialogUI } from "./dialog";
+export { Divider } from "./divider";
+export { Dropdown } from "./dropdown";
+export { DropdownOptionCmp } from "./dropdown-option";
+export { ErrorMessageWrapper } from "./error-message-wrapper";
+export { Input } from "./input";

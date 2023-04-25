@@ -1,7 +1,11 @@
-import { Button, Dropdown } from "./shared";
 import { PlusIcon } from "@heroicons/react/20/solid";
-import { DropdownOptionCmp } from "./shared";
-import { DialogUI, DialogTitle } from "./shared";
+import {
+  DropdownOptionCmp,
+  Button,
+  Dropdown,
+  DialogUI,
+  DialogTitle,
+} from "./shared";
 import { useState } from "react";
 import { Album, useAlbumsStore } from "../core/albums";
 import Image from "next/image";
