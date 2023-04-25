@@ -24,6 +24,7 @@ export const PhotosList = ({ photos }: PhotosListProps) => {
         <PhotosBulkActions
           selectedPhotos={selectedPhotos}
           onClearClick={unselectAllPhotos}
+          unSelectPhotos={unselectAllPhotos}
         />
       )}
 

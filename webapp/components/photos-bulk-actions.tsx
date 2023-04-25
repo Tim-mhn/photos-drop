@@ -9,13 +9,14 @@ import { addPhotosToAlbum } from "../core/album-photos/use-cases/add-photos-to-a
 import { CreateAlbumDialog } from "./create-album/create-album-dialog";
 import { Photos } from "../core/photos";
 
-//todo: unselect photos after adding to / creating album !
 export const PhotosBulkActions = ({
   selectedPhotos,
   onClearClick,
+  unSelectPhotos,
 }: {
   selectedPhotos: Photos;
   onClearClick: () => void;
+  unSelectPhotos: () => void;
 }) => {
   const albums = useAlbumsStore((state) => state.albums);
   const [addToAlbumDialogOpen, setAddToAlbumDialogOpen] = useState(false);
@@ -51,6 +52,7 @@ export const PhotosBulkActions = ({
         onAlbumClick={(album) => {
           addPhotosToAlbum({ album, photos: selectedPhotos });
           closeAddToAlbumDialog();
+          unSelectPhotos();
         }}
       />
 
@@ -58,6 +60,7 @@ export const PhotosBulkActions = ({
         open={createAlbumDialogOpen}
         closeDialog={() => setCreateAlbumDialogOpen(false)}
         selectedPhotos={selectedPhotos}
+        onAlbumCreated={unSelectPhotos}
       />
     </div>
   );

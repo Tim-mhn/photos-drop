@@ -12,10 +12,12 @@ export const CreateAlbumDialog = ({
   closeDialog,
   open,
   selectedPhotos,
+  onAlbumCreated,
 }: {
   closeDialog: () => void;
   open: boolean;
   selectedPhotos: Photos;
+  onAlbumCreated?: () => void;
 }) => {
   const albumsStore = useAlbumsStore();
 
@@ -36,6 +38,7 @@ export const CreateAlbumDialog = ({
           onSubmit={({ name }) => {
             albumsStore.createAlbum(name, { photos: selectedPhotos });
             closeDialog();
+            onAlbumCreated?.();
           }}
         >
           {({ values, handleChange, handleBlur, isValid }) => (
