@@ -1,51 +1,35 @@
-// import { RootState, createStore } from "../../store";
-// import { photosAdapter, photosSlice } from "../photos.slice";
-// import { retrievePhotosList } from "../use-cases/retrieve-all-photos.use-case";
+import { AllPhotosQuery } from "../queries/fetch-all-photos.query";
+import { fetchAllPhotos } from "../use-cases/retrieve-all-photos.use-case";
+import { createTestStore } from "./test.store";
 
-// describe("retrieve photos list", () => {
-//   it("it should successfully return an empty list of photos", () => {
-//     const store = createStore();
+describe("getAllPhotos", () => {
+  it("should correctly return the list of photos", async () => {
+    const mockPhotosQuery: AllPhotosQuery = async () => [
+      {
+        id: "1",
+        url: "photo1.jpeg",
+      },
+      {
+        id: "2",
+        url: "photo2.jpeg",
+      },
+    ];
+    const testStore = createTestStore({
+      photos: [],
+      photosQuery: mockPhotosQuery,
+    });
 
-//     store.dispatch(retrievePhotosList([]));
+    await testStore.dispatch(fetchAllPhotos());
 
-//     const photos = photosAdapter
-//       .getSelectors<RootState>((state) => state.photos)
-//       .selectAll(store.getState());
-
-//     expect(photos).toEqual([]);
-//   });
-
-//   it("it should successfully return the right list of photos", () => {
-//     //expected
-
-//     const store = createStore();
-
-//     store.dispatch(
-//       retrievePhotosList([
-//         {
-//           id: "photo1",
-//           url: "https://photo-1.jpg",
-//         },
-//         {
-//           id: "photo2",
-//           url: "https://photo-2.jpg",
-//         },
-//       ])
-//     );
-
-//     const photos = photosAdapter
-//       .getSelectors<RootState>((state) => state.photos)
-//       .selectAll(store.getState());
-
-//     expect(photos).toEqual([
-//       {
-//         id: "photo1",
-//         url: "https://photo-1.jpg",
-//       },
-//       {
-//         id: "photo2",
-//         url: "https://photo-2.jpg",
-//       },
-//     ]);
-//   });
-// });
+    expect(testStore.getState().photos).toEqual([
+      {
+        id: "1",
+        url: "photo1.jpeg",
+      },
+      {
+        id: "2",
+        url: "photo2.jpeg",
+      },
+    ]);
+  });
+});

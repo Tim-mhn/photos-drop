@@ -1,7 +1,14 @@
-export const photosRetriever = {
-  retrieveAllPhotos: () =>
-    new Array(30).fill("").map((_, n) => ({
-      id: n.toString(),
-      url: `https://api.dicebear.com/6.x/personas/svg?seed=${n}`,
-    })),
-};
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import { Photos } from "../entities";
+import { AllPhotosQuery } from "../queries/fetch-all-photos.query";
+
+export const fetchAllPhotos = createAsyncThunk<
+  { photos: Photos },
+  void,
+  { extra: { allPhotosQuery: AllPhotosQuery } }
+>("photos/fetchAllPhotos", async (_, { extra: { allPhotosQuery } }) => {
+  const photos = await allPhotosQuery();
+  return {
+    photos,
+  };
+});

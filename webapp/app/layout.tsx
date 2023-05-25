@@ -1,6 +1,7 @@
 import "./globals.css";
 import Header from "../components/header";
 import SideNav from "../components/side-nav";
+import { ReduxProvider } from "../components/redux-provider";
 
 export const metadata = {
   title: "Create Next App",
@@ -15,18 +16,20 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div className="flex flex-col w-screen h-screen bg-white">
-          <Header />
+        <ReduxProvider>
+          <div className="flex flex-col w-screen h-screen bg-white">
+            <Header />
 
-          <div className="flex flex-grow overflow-hidden">
-            <SideNav />
-            <div className="flex h-full flex-grow items-center overflow-hidden">
-              <div className="p-4 h-full flex flex-grow justify-center items-center overflow-auto">
-                {children}
+            <div className="flex flex-grow overflow-hidden">
+              <SideNav />
+              <div className="flex h-full flex-grow items-center overflow-hidden">
+                <div className="p-4 h-full flex flex-grow justify-center items-center overflow-auto">
+                  {children}
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </ReduxProvider>
       </body>
     </html>
   );
