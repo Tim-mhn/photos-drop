@@ -10,7 +10,7 @@ export default function AlbumsPage() {
   const albums = useAlbumsStore((state) => state.albums);
 
   return (
-    <div className="flex  h-full flex-col justify-start items-start gap-1  mb-4">
+    <div className="flex  h-full flex-col justify-start items-start gap-1 pb-4">
       <div className="flex flex-grow w-full justify-between px-1 pt-1 text-fuchsia-600 font-bold text-xl">
         <div>Albums</div>
         <CreateAlbumButton selectedPhotos={[]} />
