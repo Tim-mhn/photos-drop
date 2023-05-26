@@ -1,6 +1,6 @@
 import { object, string } from "yup";
-import { useAlbumsStore } from "../../core/albums";
-import { Photos } from "../../core/photos";
+import { useAlbumsStore } from "../../core/features/albums";
+import { Photos } from "../../core/features/photos";
 import {
   Button,
   DialogTitle,

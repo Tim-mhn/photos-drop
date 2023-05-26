@@ -7,11 +7,11 @@ import {
   DialogTitle,
 } from "./shared";
 import { useState } from "react";
-import { Album, useAlbumsStore } from "../core/albums";
 import Image from "next/image";
-import { addPhotosToAlbum } from "../core/album-photos/use-cases/add-photos-to-album";
 import { CreateAlbumDialog } from "./create-album/create-album-dialog";
-import { Photos } from "../core/photos";
+import { Photos } from "../core/features/photos";
+import { Album, useAlbumsStore } from "../core/features/albums";
+import { addPhotosToAlbum } from "../core/features/album-photos";
 
 export const PhotosBulkActions = ({
   selectedPhotos,

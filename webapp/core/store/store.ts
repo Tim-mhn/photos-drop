@@ -1,0 +1,57 @@
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { photosReducer } from "../features/photos/photosSlice";
+import { AllPhotosQuery } from "../features/photos/queries/fetch-all-photos.query";
+import { InMemoryPhotosQuery } from "../features/photos/adapters/in-memory-photos.query";
+import { albumsAdapter, albumsReducer } from "../features/albums/albumsSlice";
+import {
+  AlbumsAdapters,
+  ALBUMS_ADAPTERS,
+} from "../features/albums/adapters/albums.adapters";
+
+const rootReducer = combineReducers({
+  photos: photosReducer,
+  albums: albumsReducer,
+});
+
+export type RootState = ReturnType<typeof rootReducer>;
+export type AppDispatch = typeof store.dispatch;
+
+export function createStore(
+  preloadedState: RootState,
+  adapters: {
+    photosQuery: AllPhotosQuery;
+  } & AlbumsAdapters
+) {
+  const { photosQuery, ...albumsAdapters } = adapters;
+  const store = configureStore({
+    reducer: rootReducer,
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware({
+        thunk: {
+          extraArgument: {
+            allPhotosQuery: photosQuery,
+            ...albumsAdapters,
+          },
+        },
+      }),
+    preloadedState,
+  });
+
+  return store;
+}
+
+const createProductionStore = () =>
+  createStore(
+    {
+      photos: [],
+      albums: albumsAdapter.getInitialState([]),
+    },
+    {
+      photosQuery: InMemoryPhotosQuery,
+      ...ALBUMS_ADAPTERS,
+    }
+  );
+
+export const store = createProductionStore();
+
+export type Store = typeof store;

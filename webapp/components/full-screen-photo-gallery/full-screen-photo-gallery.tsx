@@ -5,7 +5,7 @@ import {
   ArrowRightCircleIcon,
 } from "@heroicons/react/20/solid";
 import { DialogUI } from "../shared";
-import { Photos, Photo } from "../../core/photos";
+import { Photos, Photo } from "../../core/features/photos";
 import {
   getNextPhoto,
   getPreviousPhoto,

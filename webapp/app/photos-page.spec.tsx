@@ -2,7 +2,7 @@ import { updateSelectedPhotos } from "../components/photos-list/photos-list";
 import {
   Photo,
   Photos,
-} from "../core/photos/use-cases/retrieve-all-photos.use-case";
+} from "../core/features/photos/use-cases/retrieve-all-photos.use-case";
 
 describe("TogglePhotoSelection", () => {
   it("should add the photo id if there are no photos selected", () => {

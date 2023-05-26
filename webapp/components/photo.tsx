@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
-import { Photo } from "../core/photos";
+import { Photo } from "../core/features/photos";
 import classNames from "classnames";
 
 export function PhotoComponent({

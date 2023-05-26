@@ -1,9 +1,8 @@
 "use client";
 import { Divider } from "../../../components/shared";
 import { PhotosList } from "../../../components/photos-list/photos-list";
-
-import { useAlbumsStore } from "../../../core/albums";
-import { getAlbumPhotos } from "../../../core/album-photos";
+import { getAlbumPhotos } from "../../../core/features/album-photos";
+import { useAlbumsStore } from "../../../core/features/albums";
 
 export default function AlbumPhotosPage({
   params,

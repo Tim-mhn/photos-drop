@@ -2,16 +2,26 @@
 import Link from "next/link";
 /* eslint-disable @next/next/no-img-element */
 import { Divider } from "../../components/shared";
-import { useAlbumsStore } from "../../core/albums/infrastructure/store";
-import { Album } from "../../core/albums";
 import { CreateAlbumButton } from "../../components/create-album/create-album-button";
+import { Album } from "../../core/features/albums";
+import { useDispatch, useSelector } from "react-redux";
+import { albumsSelectors } from "../../core/features/albums/albumsSlice";
+import { useEffect } from "react";
+import { fetchAllAlbums } from "../../core/features/albums/use-cases/fetch-all-albums/fetch-all-albums";
+import { AppDispatch } from "../../core/store";
 
 export default function AlbumsPage() {
-  const albums = useAlbumsStore((state) => state.albums);
+  // const albums = useAlbumsStore((state) => state.albums);
 
+  const dispatch = useDispatch<AppDispatch>();
+  const albums = useSelector(albumsSelectors.selectAll);
+
+  useEffect(() => {
+    dispatch(fetchAllAlbums());
+  }, [dispatch]);
   return (
-    <div className="flex  h-full flex-col justify-start items-start gap-1 pb-4">
-      <div className="flex flex-grow w-full justify-between px-1 pt-1 text-fuchsia-600 font-bold text-xl">
+    <div className="flex w-full h-full flex-col justify-start items-start gap-1 pb-4">
+      <div className="flex w-full justify-between px-1 pt-1 text-fuchsia-600 font-bold text-xl">
         <div>Albums</div>
         <CreateAlbumButton selectedPhotos={[]} />
       </div>
