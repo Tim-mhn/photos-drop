@@ -1,2 +1,3 @@
-export * from "./entities";
-export * from "./infrastructure";
+export * from "./domain";
+export * from "./use-cases";
+export * from "./adapters";

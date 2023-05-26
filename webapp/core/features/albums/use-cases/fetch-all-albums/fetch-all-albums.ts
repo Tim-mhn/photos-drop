@@ -1,21 +1,18 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { AllAlbumsQuery } from "./all-albums.query";
-import { Albums } from "../../entities";
+import { Albums } from "../../domain";
+import { AlbumsAPI } from "../../application/albums.api";
 
 export const fetchAllAlbums = createAsyncThunk<
   Albums,
   void,
   {
     extra: {
-      allAlbumsQuery: AllAlbumsQuery;
+      albumsAPI: AlbumsAPI;
     };
   }
 >(
   "albums/fetchAllAlbums",
-  async (
-    _,
-    { extra: { allAlbumsQuery } }: { extra: { allAlbumsQuery: AllAlbumsQuery } }
-  ) => {
-    return await allAlbumsQuery();
+  async (_, { extra: { albumsAPI } }: { extra: { albumsAPI: AlbumsAPI } }) => {
+    return await albumsAPI.fetchAllAlbums();
   }
 );

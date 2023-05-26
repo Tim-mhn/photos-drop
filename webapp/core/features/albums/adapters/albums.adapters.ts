@@ -1,15 +1,7 @@
-import { AllAlbumsQuery } from "../use-cases/fetch-all-albums/all-albums.query";
-import { DeleteAlbumCommand } from "../use-cases/delete-album/delete-album.command";
-import { CreateAlbumCommand } from "../use-cases/create-album/create-album.command";
+import { AlbumsAPI } from "../application/albums.api";
 
-export type AlbumsAdapters = {
-  allAlbumsQuery: AllAlbumsQuery;
-  deleteAlbumCommand: DeleteAlbumCommand;
-  createAlbumCommand: CreateAlbumCommand;
-};
-
-export const ALBUMS_ADAPTERS: AlbumsAdapters = {
-  allAlbumsQuery: async () => [
+export const ALBUMS_API: AlbumsAPI = {
+  fetchAllAlbums: async () => [
     {
       id: "1",
       coverPhoto:
@@ -18,6 +10,6 @@ export const ALBUMS_ADAPTERS: AlbumsAdapters = {
       name: "Album 1",
     },
   ],
-  deleteAlbumCommand: async () => undefined,
-  createAlbumCommand: async ({ name }) => undefined,
+  deleteAlbum: async () => undefined,
+  createAlbum: async ({ name }) => undefined,
 };

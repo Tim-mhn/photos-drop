@@ -1,5 +1,5 @@
 import { albumsSelectors } from "../albumsSlice";
-import { Albums } from "../entities";
+import { Albums } from "../domain";
 import { albumBuilder } from "./album.builder";
 import { AlbumsTestFixture } from "./test.fixture";
 

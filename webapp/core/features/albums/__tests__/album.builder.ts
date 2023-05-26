@@ -1,4 +1,4 @@
-import { Album } from "../entities";
+import { Album } from "../domain";
 
 const DEFAULT_PROPS: Album = {
   coverPhoto: "cover-photo.jpeg",

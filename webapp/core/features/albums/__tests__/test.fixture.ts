@@ -1,25 +1,36 @@
 import { Store, createTestStore } from "../../../store";
 import { albumsSelectors } from "../albumsSlice";
-import { AlbumId, Albums } from "../entities";
-import { AllAlbumsQuery } from "../use-cases/fetch-all-albums/all-albums.query";
+import { AlbumId, Albums } from "../domain";
 import { deleteAlbum } from "../use-cases/delete-album/delete-album";
 import { fetchAllAlbums } from "../use-cases/fetch-all-albums/fetch-all-albums";
 import { createAlbum } from "../use-cases/create-album/create-album";
 import { albumBuilder } from "./album.builder";
+import { AlbumsAPI } from "../application/albums.api";
 
+class MockAlbumsAPI implements AlbumsAPI {
+  async createAlbum({ name }: { name: string }): Promise<void> {
+    const randomId = (Math.random() + 1).toString(36).substring(7);
+    const newAlbum = albumBuilder().withId(randomId).withName(name).build();
+    this.albums.push(newAlbum);
+  }
+
+  albums: Albums = [];
+  async fetchAllAlbums(): Promise<Albums> {
+    return this.albums;
+  }
+
+  async deleteAlbum(id: string): Promise<void> {
+    this.albums = this.albums.filter((a) => a.id === id);
+  }
+}
 export class AlbumsTestFixture {
   store!: Store;
 
-  private mockAlbums: Albums = [];
-  private mockAlbumsQuery: AllAlbumsQuery = async () => {
-    console.count("fetch all albums");
-    return this.mockAlbums;
-  };
-
+  albumsAPI = new MockAlbumsAPI();
   async buildStoreWithInitialState(albums: Albums = []) {
-    this.mockAlbums = albums;
+    this.albumsAPI.albums = albums;
     this.store = createTestStore({
-      allAlbumsQuery: this.mockAlbumsQuery,
+      albumsAPI: this.albumsAPI,
     });
 
     await this.store.dispatch(fetchAllAlbums());
@@ -28,19 +39,14 @@ export class AlbumsTestFixture {
   }
 
   givenAlbumsQueryWillReturn(albums: Albums) {
-    this.mockAlbums = albums;
+    this.albumsAPI.albums = albums;
   }
 
   async whenDeleteAlbumById(albumId: AlbumId) {
     await this.store.dispatch(deleteAlbum(albumId));
-    this.mockAlbums = this.mockAlbums.filter((album) => album.id !== albumId);
   }
 
   async whenCreatingAlbum({ name }: { name: string }) {
-    this.mockAlbums.push(
-      albumBuilder().withId("okcoaecoeac").withName(name).build()
-    );
-
     await this.store.dispatch(createAlbum(name));
   }
 

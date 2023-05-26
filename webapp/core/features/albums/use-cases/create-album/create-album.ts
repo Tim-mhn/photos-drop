@@ -1,16 +1,16 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { CreateAlbumCommand } from "./create-album.command";
 import { fetchAllAlbums } from "../fetch-all-albums/fetch-all-albums";
 import { AppDispatch } from "../../../../store";
+import { AlbumsAPI } from "../../application/albums.api";
 
 export const createAlbum = createAsyncThunk<
   void,
   string,
-  { extra: { createAlbumCommand: CreateAlbumCommand }; dispatch: AppDispatch }
+  { extra: { albumsAPI: AlbumsAPI }; dispatch: AppDispatch }
 >(
   "albums/createAlbum",
-  async (albumName, { extra: { createAlbumCommand }, dispatch }) => {
-    await createAlbumCommand({ name: albumName });
+  async (albumName, { extra: { albumsAPI }, dispatch }) => {
+    await albumsAPI.createAlbum({ name: albumName });
     dispatch(fetchAllAlbums());
   }
 );

@@ -1,12 +1,12 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { DeleteAlbumCommand } from "./delete-album.command";
-import { AlbumId } from "../../entities";
+import { AlbumId } from "../../domain";
+import { AlbumsAPI } from "../../application/albums.api";
 
 export const deleteAlbum = createAsyncThunk<
   AlbumId,
   AlbumId,
-  { extra: { deleteAlbumCommand: DeleteAlbumCommand } }
->("albums/deleteAlbum", async (id, { extra: { deleteAlbumCommand } }) => {
-  await deleteAlbumCommand(id);
+  { extra: { albumsAPI: AlbumsAPI } }
+>("albums/deleteAlbum", async (id, { extra: { albumsAPI } }) => {
+  await albumsAPI.deleteAlbum(id);
   return id;
 });

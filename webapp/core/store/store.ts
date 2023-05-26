@@ -3,10 +3,8 @@ import { photosReducer } from "../features/photos/photosSlice";
 import { AllPhotosQuery } from "../features/photos/queries/fetch-all-photos.query";
 import { InMemoryPhotosQuery } from "../features/photos/adapters/in-memory-photos.query";
 import { albumsAdapter, albumsReducer } from "../features/albums/albumsSlice";
-import {
-  AlbumsAdapters,
-  ALBUMS_ADAPTERS,
-} from "../features/albums/adapters/albums.adapters";
+import { ALBUMS_API } from "../features/albums/adapters/albums.adapters";
+import { AlbumsAPI } from "../features/albums/application/albums.api";
 
 const rootReducer = combineReducers({
   photos: photosReducer,
@@ -20,9 +18,9 @@ export function createStore(
   preloadedState: RootState,
   adapters: {
     photosQuery: AllPhotosQuery;
-  } & AlbumsAdapters
+  } & { albumsAPI: AlbumsAPI }
 ) {
-  const { photosQuery, ...albumsAdapters } = adapters;
+  const { photosQuery, albumsAPI } = adapters;
   const store = configureStore({
     reducer: rootReducer,
     middleware: (getDefaultMiddleware) =>
@@ -30,7 +28,7 @@ export function createStore(
         thunk: {
           extraArgument: {
             allPhotosQuery: photosQuery,
-            ...albumsAdapters,
+            albumsAPI,
           },
         },
       }),
@@ -48,7 +46,7 @@ const createProductionStore = () =>
     },
     {
       photosQuery: InMemoryPhotosQuery,
-      ...ALBUMS_ADAPTERS,
+      albumsAPI: ALBUMS_API,
     }
   );
 

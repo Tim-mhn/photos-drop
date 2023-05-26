@@ -1,5 +1,5 @@
 import { createEntityAdapter, createSlice } from "@reduxjs/toolkit";
-import { Album } from "./entities";
+import { Album } from "./domain";
 import { fetchAllAlbums } from "./use-cases/fetch-all-albums/fetch-all-albums";
 import { deleteAlbum } from "./use-cases/delete-album/delete-album";
 import { RootState } from "../../store";
