@@ -5,13 +5,15 @@ import {
   Dropdown,
   DialogUI,
   DialogTitle,
-} from "./shared";
+} from "./ui";
 import { useState } from "react";
 import Image from "next/image";
 import { CreateAlbumDialog } from "./create-album/create-album-dialog";
 import { Photos } from "../core/features/photos";
-import { Album, useAlbumsStore } from "../core/features/albums";
+import { Album } from "../core/features/albums";
 import { addPhotosToAlbum } from "../core/features/album-photos";
+import { useSelector } from "react-redux";
+import { albumsSelectors } from "../core/features/albums/albumsSlice";
 
 export const PhotosBulkActions = ({
   selectedPhotos,
@@ -22,7 +24,7 @@ export const PhotosBulkActions = ({
   onClearClick: () => void;
   unSelectPhotos: () => void;
 }) => {
-  const albums = useAlbumsStore((state) => state.albums);
+  const albums = useSelector(albumsSelectors.selectAll);
   const [addToAlbumDialogOpen, setAddToAlbumDialogOpen] = useState(false);
   const [createAlbumDialogOpen, setCreateAlbumDialogOpen] = useState(false);
   const trigger = (

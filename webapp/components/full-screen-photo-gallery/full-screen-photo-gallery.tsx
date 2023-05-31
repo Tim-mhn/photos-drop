@@ -4,7 +4,7 @@ import {
   ArrowLeftIcon,
   ArrowRightCircleIcon,
 } from "@heroicons/react/20/solid";
-import { DialogUI } from "../shared";
+import { DialogUI } from "../ui";
 import { Photos, Photo } from "../../core/features/photos";
 import {
   getNextPhoto,

@@ -1,7 +1,7 @@
 import Image from "next/image";
-import { Button } from "./shared";
+import { Button } from "../ui";
 
-export default function Header() {
+export function Header() {
   return (
     <div className="flex h-16 px-8 border border-b border-gray-100 items-center shadow-sm">
       <Image

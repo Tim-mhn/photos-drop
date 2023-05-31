@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { Button } from "../shared";
+import { Button } from "../ui";
 import { Photos } from "../../core/features/photos";
 import { CreateAlbumDialog } from "./create-album-dialog";
 

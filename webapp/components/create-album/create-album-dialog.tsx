@@ -1,5 +1,4 @@
 import { object, string } from "yup";
-import { useAlbumsStore } from "../../core/features/albums";
 import { Photos } from "../../core/features/photos";
 import {
   Button,
@@ -7,8 +6,10 @@ import {
   DialogUI,
   ErrorMessageWrapper,
   Input,
-} from "../shared";
+} from "../ui";
 import { Form, Formik } from "formik";
+import { createAlbum } from "../../core/features/albums";
+import { useAppDispatch } from "../../core/store";
 
 const newGroupSchema = object().shape({
   name: string().min(1).required(),
@@ -24,7 +25,9 @@ export const CreateAlbumDialog = ({
   selectedPhotos: Photos;
   onAlbumCreated?: () => void;
 }) => {
-  const albumsStore = useAlbumsStore();
+  const dispatch = useAppDispatch();
+
+  const createAlbumByName = (name: string) => dispatch(createAlbum(name));
 
   return (
     <DialogUI
@@ -41,7 +44,8 @@ export const CreateAlbumDialog = ({
           initialValues={{ name: "" }}
           validationSchema={newGroupSchema}
           onSubmit={({ name }) => {
-            albumsStore.createAlbum(name, { photos: selectedPhotos });
+            console.log(name);
+            createAlbumByName(name);
             closeDialog();
             onAlbumCreated?.();
           }}

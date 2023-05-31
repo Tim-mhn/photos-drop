@@ -1,19 +1,17 @@
 "use client";
 import Link from "next/link";
 /* eslint-disable @next/next/no-img-element */
-import { Divider } from "../../components/shared";
+import { Divider } from "../../components/ui";
 import { CreateAlbumButton } from "../../components/create-album/create-album-button";
 import { Album } from "../../core/features/albums";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { albumsSelectors } from "../../core/features/albums/albumsSlice";
 import { useEffect } from "react";
 import { fetchAllAlbums } from "../../core/features/albums/use-cases/fetch-all-albums/fetch-all-albums";
-import { AppDispatch } from "../../core/store";
+import { useAppDispatch } from "../../core/store";
 
 export default function AlbumsPage() {
-  // const albums = useAlbumsStore((state) => state.albums);
-
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
   const albums = useSelector(albumsSelectors.selectAll);
 
   useEffect(() => {
