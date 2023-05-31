@@ -1,9 +1,11 @@
 export type AlbumId = string;
+export type AlbumName = string;
 export type Album = {
-  name: string;
+  id: AlbumId;
+
+  name: AlbumName;
   itemsCount: number;
   coverPhoto: string;
-  id: AlbumId;
 };
 
 export type Albums = Album[];

@@ -1,7 +1,6 @@
 import { RootState, createStore } from "./store";
 import { Photos } from "../features/photos/entities";
 import { AllPhotosQuery } from "../features/photos/queries/fetch-all-photos.query";
-import { albumsAdapter } from "../features/albums/albumsSlice";
 import { AlbumsAPI } from "../features/albums/application/albums.api";
 
 export function createInMemoryPhotosQuery(photos: Photos): AllPhotosQuery {
@@ -35,9 +34,9 @@ export function createTestStore(props: Partial<StoreProps> = {}) {
     ...props,
   };
 
-  const initialState: RootState = {
+  const initialState: Partial<RootState> = {
     photos,
-    albums: albumsAdapter.getInitialState(),
+    // albums: albumsAdapter.getInitialState(),
   };
 
   return createStore(initialState, {

@@ -8,8 +8,7 @@ import {
   Input,
 } from "../ui";
 import { Form, Formik } from "formik";
-import { createAlbum } from "../../core/features/albums";
-import { useAppDispatch } from "../../core/store";
+import { useCreateAlbumMutation } from "../../core/features/albums";
 
 const newGroupSchema = object().shape({
   name: string().min(1).required(),
@@ -25,9 +24,7 @@ export const CreateAlbumDialog = ({
   selectedPhotos: Photos;
   onAlbumCreated?: () => void;
 }) => {
-  const dispatch = useAppDispatch();
-
-  const createAlbumByName = (name: string) => dispatch(createAlbum(name));
+  const [createAlbum] = useCreateAlbumMutation();
 
   return (
     <DialogUI
@@ -45,7 +42,7 @@ export const CreateAlbumDialog = ({
           validationSchema={newGroupSchema}
           onSubmit={({ name }) => {
             console.log(name);
-            createAlbumByName(name);
+            createAlbum(name);
             closeDialog();
             onAlbumCreated?.();
           }}

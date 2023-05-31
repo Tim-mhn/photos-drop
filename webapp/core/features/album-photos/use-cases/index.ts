@@ -1,2 +1,2 @@
 export * from "./add-photos-to-album";
-export * from "./get-album-photos";
+export * from "../../albums/use-cases/get-album-photos/get-album-photos";

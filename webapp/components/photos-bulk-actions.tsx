@@ -10,10 +10,8 @@ import { useState } from "react";
 import Image from "next/image";
 import { CreateAlbumDialog } from "./create-album/create-album-dialog";
 import { Photos } from "../core/features/photos";
-import { Album } from "../core/features/albums";
+import { Album, useGetAllAlbumsQuery } from "../core/features/albums";
 import { addPhotosToAlbum } from "../core/features/album-photos";
-import { useSelector } from "react-redux";
-import { albumsSelectors } from "../core/features/albums/albumsSlice";
 
 export const PhotosBulkActions = ({
   selectedPhotos,
@@ -24,7 +22,9 @@ export const PhotosBulkActions = ({
   onClearClick: () => void;
   unSelectPhotos: () => void;
 }) => {
-  const albums = useSelector(albumsSelectors.selectAll);
+  // const albums = useSelector(albumsSelectors.selectAll);
+  const { data } = useGetAllAlbumsQuery();
+  const albums = data || [];
   const [addToAlbumDialogOpen, setAddToAlbumDialogOpen] = useState(false);
   const [createAlbumDialogOpen, setCreateAlbumDialogOpen] = useState(false);
   const trigger = (
