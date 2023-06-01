@@ -49,7 +49,10 @@ export function createStore(
 const createProductionStore = () =>
   createStore(
     {
-      photos: [],
+      photos: {
+        photos: [],
+        uploading: false,
+      },
     },
     {
       albumsAPI: MOCK_ALBUMS_API,

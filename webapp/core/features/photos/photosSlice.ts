@@ -5,8 +5,12 @@ import {
 } from "@reduxjs/toolkit";
 import { Photo, Photos } from "./entities";
 import { fetchAllPhotos } from "./use-cases/retrieve-all-photos.use-case";
+import { uploadPhotos } from "./use-cases/upload-photos.use-case";
 
-const initialState: Photos = [];
+const initialState: { photos: Photos; uploading: boolean } = {
+  photos: [],
+  uploading: false,
+};
 export const photosAdapter = createEntityAdapter<Photo>();
 
 export const photosSlice = createSlice({
@@ -14,13 +18,20 @@ export const photosSlice = createSlice({
   initialState,
   reducers: {
     addPhoto: (state, action: PayloadAction<Photo>) => {
-      state.push(action.payload);
+      state.photos.push(action.payload);
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchAllPhotos.fulfilled, (_state, action) => {
-      return action.payload.photos;
-    });
+    builder
+      .addCase(fetchAllPhotos.fulfilled, (state, action) => {
+        state.photos = action.payload.photos;
+      })
+      .addCase(uploadPhotos.pending, (state) => {
+        state.uploading = true;
+      })
+      .addCase(uploadPhotos.fulfilled, (state) => {
+        state.uploading = false;
+      });
   },
 });
 

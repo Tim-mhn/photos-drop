@@ -22,7 +22,7 @@ describe("upload photos", () => {
     const images = [image4, image2, image3];
     await testFixture.uploadPhotos(images);
 
-    expect(testFixture.getAllPhotos().length).toEqual(4);
+    expect(testFixture.getAllPhotos().photos.length).toEqual(4);
   });
 });
 

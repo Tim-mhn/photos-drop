@@ -16,7 +16,7 @@ export const DialogTitle = ({ children }: { children: React.ReactNode }) => {
 type DialogProps = {
   open: boolean;
   close: () => void;
-  title: React.ReactNode;
+  title?: React.ReactNode;
   children?: React.ReactNode;
   fullScreen?: boolean;
   color?: "light" | "dark";
