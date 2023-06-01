@@ -1,6 +1,6 @@
 import { AllPhotosQuery } from "../queries/fetch-all-photos.query";
 import { fetchAllPhotos } from "../use-cases/retrieve-all-photos.use-case";
-import { createTestStore } from "../../../store";
+import { createTestStore } from "../../../shared/store";
 
 describe("getAllPhotos", () => {
   it("should correctly return the list of photos", async () => {

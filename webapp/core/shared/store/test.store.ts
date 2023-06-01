@@ -1,7 +1,7 @@
 import { RootState, createStore } from "./store";
-import { Photos } from "../features/photos/entities";
-import { AllPhotosQuery } from "../features/photos/queries/fetch-all-photos.query";
-import { AlbumsAPI } from "../features/albums/application/albums.api";
+import { Photos } from "../../features/photos/entities";
+import { AllPhotosQuery } from "../../features/photos/queries/fetch-all-photos.query";
+import { AlbumsAPI } from "../../features/albums/application/albums.api";
 
 export function createInMemoryPhotosQuery(photos: Photos): AllPhotosQuery {
   return createInMemoryQuery(photos);

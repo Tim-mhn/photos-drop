@@ -1,5 +1,5 @@
 import { addPhoto } from "../photosSlice";
-import { createTestStore } from "../../../store";
+import { createTestStore } from "../../../shared/store";
 
 describe("addPhotos", () => {
   it("should correctly add a photo to an intiial empty list", () => {

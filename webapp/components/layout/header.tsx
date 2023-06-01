@@ -12,7 +12,7 @@ export function Header() {
         height={56}
       />
       <div className="flex flex-grow justify-end gap-8 ">
-        <Button>Upload</Button>
+        <Button withBorder={true}>Upload</Button>
         <div className="h-8 w-8 rounded-full bg-pink-400 text-white flex items-center justify-center text-base font-semibold">
           T
         </div>

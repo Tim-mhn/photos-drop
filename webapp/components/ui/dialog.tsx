@@ -31,7 +31,7 @@ export function DialogUI({
 }: DialogProps) {
   const color = _color || "light";
   const dialogPanelClasses = classNames({
-    "relative transform overflow-hidden  py-2  text-left shadow-xl transition-all ":
+    "relative transform border border-4 overflow-hidden  py-2  text-left shadow-dialog transition-all ":
       true,
     " sm:w-full sm:max-w-sm rounded-lg": !fullScreen,
     "w-screen h-screen flex flex-col items-center justify-center": fullScreen,

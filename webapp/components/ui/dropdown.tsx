@@ -10,7 +10,7 @@ export function Dropdown({
   trigger: React.ReactNode;
 }) {
   return (
-    <Menu as="div" className="relative inline-block text-left">
+    <Menu as="div" className="relative inline-block text-left ">
       <div>
         <Menu.Button>{trigger}</Menu.Button>
       </div>
@@ -24,8 +24,8 @@ export function Dropdown({
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-          <div className="py-1">{children}</div>
+        <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right  bg-white  ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <div className=" border-2 border-black">{children}</div>
         </Menu.Items>
       </Transition>
     </Menu>

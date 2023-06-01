@@ -1,20 +1,18 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { photosReducer } from "../features/photos/photosSlice";
-import { AllPhotosQuery } from "../features/photos/queries/fetch-all-photos.query";
-import { InMemoryPhotosQuery } from "../features/photos/adapters/in-memory-photos.query";
-import { albumsReducer } from "../features/albums/albumsSlice";
+import { photosReducer } from "../../features/photos/photosSlice";
+import { AllPhotosQuery } from "../../features/photos/queries/fetch-all-photos.query";
+import { InMemoryPhotosQuery } from "../../features/photos/adapters/in-memory-photos.query";
 import {
   MOCK_ALBUMS_API,
   albumsApi,
-} from "../features/albums/adapters/albums.adapters";
-import { AlbumsAPI } from "../features/albums/application/albums.api";
+} from "../../features/albums/adapters/albums.adapters";
+import { AlbumsAPI } from "../../features/albums/application/albums.api";
 
 // check https://codesandbox.io/s/rtk-query-github-example-nk4b1?file=/src/shared/redux/store.ts
 // good example of redux structure
 
 const rootReducer = combineReducers({
   photos: photosReducer,
-  albums: albumsReducer,
   [albumsApi.reducerPath]: albumsApi.reducer,
 });
 

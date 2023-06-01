@@ -1,4 +1,3 @@
-import { PlusIcon } from "@heroicons/react/20/solid";
 import {
   DropdownOptionCmp,
   Button,
@@ -12,6 +11,7 @@ import { CreateAlbumDialog } from "./create-album/create-album-dialog";
 import { Photos } from "../core/features/photos";
 import { Album, useGetAllAlbumsQuery } from "../core/features/albums";
 import { addPhotosToAlbum } from "../core/features/album-photos";
+import { IconButton } from "./ui/icon-button";
 
 export const PhotosBulkActions = ({
   selectedPhotos,
@@ -27,14 +27,12 @@ export const PhotosBulkActions = ({
   const albums = data || [];
   const [addToAlbumDialogOpen, setAddToAlbumDialogOpen] = useState(false);
   const [createAlbumDialogOpen, setCreateAlbumDialogOpen] = useState(false);
-  const trigger = (
-    <PlusIcon className="h-8 w-8 hover:shadow-sm rounded-full hover:bg-gray-50" />
-  );
+  const trigger = <IconButton icon="plus"></IconButton>;
 
   const closeAddToAlbumDialog = () => setAddToAlbumDialogOpen(false);
 
   return (
-    <div className="px-2 flex flex-grow items-center gap-4 text-fuchsia-600">
+    <div className="px-2 flex flex-grow  items-center gap-4 text-fuchsia-600">
       <div> {selectedPhotos.length} selected</div>
 
       <Button style="simple" onClick={onClearClick}>

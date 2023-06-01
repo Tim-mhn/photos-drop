@@ -1,10 +1,7 @@
 "use client";
-import { Divider } from "../../../components/ui";
+import { Divider, LoaderIf } from "../../../components/ui";
 import { PhotosList } from "../../../components/photos-list/photos-list";
-import { useSelector } from "react-redux";
-import { albumsSelectors } from "../../../core/features/albums/albumsSlice";
-import { RootState } from "../../../core/store";
-import { Album } from "../../../core/features/albums";
+import { useGetAlbumQuery } from "../../../core/features/albums";
 import { useQuery } from "react-query";
 import { getAlbumPhotos } from "../../../core/features/album-photos";
 
@@ -14,15 +11,14 @@ export default function AlbumPhotosPage({
   params: { id: string };
 }) {
   const albumId = params.id;
-  const { data, isLoading } = useQuery({
+  const { data } = useQuery({
     queryKey: ["album-photos", albumId],
     queryFn: () => getAlbumPhotos({ albumId }),
   });
 
   const photos = data || [];
-  const album = useSelector<RootState, Album | undefined>((state) =>
-    albumsSelectors.selectById(state, albumId)
-  );
+
+  const { data: album, isLoading } = useGetAlbumQuery(albumId);
 
   return (
     <div className="flex flex-col w-full h-full justify-start gap-6">
@@ -35,6 +31,8 @@ export default function AlbumPhotosPage({
       <div>
         <PhotosList photos={photos} />
       </div>
+
+      <LoaderIf isLoading={isLoading} />
     </div>
   );
 }

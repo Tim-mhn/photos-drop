@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 /* eslint-disable @next/next/no-img-element */
-import { Divider } from "../../components/ui";
+import { Divider, LoaderIf } from "../../components/ui";
 import { CreateAlbumButton } from "../../components/create-album/create-album-button";
 import {
   Album,
@@ -10,8 +10,7 @@ import {
 } from "../../core/features/albums";
 
 export default function AlbumsPage() {
-  // const albums = useSelector(albumsSelectors.selectAll);
-  const { data } = useGetAllAlbumsQuery();
+  const { data, isLoading } = useGetAllAlbumsQuery();
   const albums = data || [];
 
   return (
@@ -24,6 +23,8 @@ export default function AlbumsPage() {
       <div className="m-1"></div>
 
       <AlbumList albums={albums} />
+
+      <LoaderIf isLoading={isLoading} />
     </div>
   );
 }
