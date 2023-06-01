@@ -1,4 +1,6 @@
 import { randomId } from "../../../../shared/utils";
+import { getAlbumPhotos } from "../../album-photos";
+import { Photos } from "../../photos";
 import { AlbumsAPI } from "../application/albums.api";
 import { Album, Albums } from "../domain";
 
@@ -38,6 +40,10 @@ export class MockAlbumsApi implements AlbumsAPI {
       itemsCount: 0,
     };
     this.albums = [...this.albums, randomAlbum];
+  }
+
+  async getAlbumPhotos(albumId: string): Promise<Photos> {
+    return getAlbumPhotos({ albumId });
   }
 
   private COVER_PHOTO =

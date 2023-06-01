@@ -3,3 +3,19 @@
 @tailwind utilities;
 
 
+@layer utilities {
+    * {
+        scrollbar-width: thin;
+        scrollbar-color: #d0d5dd transparent;
+    }
+
+    ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #d0d5dd;
+        border-radius: 6px;
+    }
+}

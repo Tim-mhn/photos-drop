@@ -2,7 +2,6 @@ import "./globals.css";
 import { AppQueryClientProvider } from "../components/providers/query-client.provider";
 import { ReduxProvider } from "../components/providers";
 import { SideNav, Header } from "../components/layout";
-
 export const metadata = {
   title: "PhotosDrop",
   description: "My own photos web app",

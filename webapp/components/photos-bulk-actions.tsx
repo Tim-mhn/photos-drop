@@ -22,7 +22,6 @@ export const PhotosBulkActions = ({
   onClearClick: () => void;
   unSelectPhotos: () => void;
 }) => {
-  // const albums = useSelector(albumsSelectors.selectAll);
   const { data } = useGetAllAlbumsQuery();
   const albums = data || [];
   const [addToAlbumDialogOpen, setAddToAlbumDialogOpen] = useState(false);

@@ -1,9 +1,10 @@
 "use client";
-import { Divider, LoaderIf } from "../../../components/ui";
+import { LoaderIf, TextSkeleton } from "../../../components/ui";
 import { PhotosList } from "../../../components/photos-list/photos-list";
-import { useGetAlbumQuery } from "../../../core/features/albums";
-import { useQuery } from "react-query";
-import { getAlbumPhotos } from "../../../core/features/album-photos";
+import {
+  useGetAlbumPhotosQuery,
+  useGetAlbumQuery,
+} from "../../../core/features/albums";
 
 export default function AlbumPhotosPage({
   params,
@@ -11,28 +12,26 @@ export default function AlbumPhotosPage({
   params: { id: string };
 }) {
   const albumId = params.id;
-  const { data } = useQuery({
-    queryKey: ["album-photos", albumId],
-    queryFn: () => getAlbumPhotos({ albumId }),
-  });
+  const { data: albumPhotosData, isLoading: photosLoading } =
+    useGetAlbumPhotosQuery(albumId);
 
-  const photos = data || [];
+  const photos = albumPhotosData || [];
 
-  const { data: album, isLoading } = useGetAlbumQuery(albumId);
+  const { data: album, isLoading: albumIsLoading } = useGetAlbumQuery(albumId);
 
   return (
     <div className="flex flex-col w-full h-full justify-start gap-6">
-      <div className="text-4xl text-fuchsia-600 font-semibold">
-        {album?.name}
-      </div>
+      <TextSkeleton isLoading={albumIsLoading}>
+        <div className="text-4xl text-fuchsia-600 tracking-tight font-black underline underline-offset-8">
+          {album?.name}
+        </div>
+      </TextSkeleton>
 
-      <Divider />
-
-      <div>
+      <div className="overflow-hidden">
         <PhotosList photos={photos} />
       </div>
 
-      <LoaderIf isLoading={isLoading} />
+      <LoaderIf isLoading={photosLoading} />
     </div>
   );
 }

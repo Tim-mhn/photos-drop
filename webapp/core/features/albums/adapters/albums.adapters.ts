@@ -2,6 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Album, AlbumId, AlbumName, Albums } from "../domain";
 import { MockAlbumsApi } from "./mock-albums.api";
 import { AlbumsAPI } from "../application/albums.api";
+import { Photos } from "../../photos";
 
 export const MOCK_ALBUMS_API: AlbumsAPI = new MockAlbumsApi();
 
@@ -38,6 +39,12 @@ export const albumsApi = createApi({
         return { data: album };
       },
     }),
+    getAlbumPhotos: build.query<Photos, AlbumId>({
+      async queryFn(albumId: AlbumId) {
+        const albumPhotos = await MOCK_ALBUMS_API.getAlbumPhotos(albumId);
+        return { data: albumPhotos };
+      },
+    }),
   }),
 });
 
@@ -46,4 +53,5 @@ export const {
   useDeleteAlbumMutation,
   useCreateAlbumMutation,
   useGetAlbumQuery,
+  useGetAlbumPhotosQuery,
 } = albumsApi;

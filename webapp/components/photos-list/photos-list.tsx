@@ -33,7 +33,7 @@ export const PhotosList = ({ photos }: PhotosListProps) => {
   };
 
   return (
-    <div className="flex flex-col flex-grow h-full w-full overflow-auto gap-4 text-gray-800">
+    <div className="flex flex-col flex-grow h-full w-full overflow-auto gap-4 text-gray-800 ">
       {selectedPhotos.length > 0 && (
         <PhotosBulkActions
           selectedPhotos={selectedPhotos}
@@ -42,7 +42,7 @@ export const PhotosList = ({ photos }: PhotosListProps) => {
         />
       )}
 
-      <div className="flex flex-grow  grid grid-cols-6 gap-4 overflow-auto">
+      <div className="flex flex-grow  grid grid-cols-6 overflow-auto border border-4 rounded-md border-fuchsia-500">
         {photos.map((photo, n) => (
           <div
             onClick={() => openFullScreenGalleryWithInitialPhoto(photo)}
