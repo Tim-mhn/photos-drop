@@ -1,12 +1,12 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { photosReducer } from "../../features/photos/photosSlice";
-import { AllPhotosQuery } from "../../features/photos/queries/fetch-all-photos.query";
-import { InMemoryPhotosQuery } from "../../features/photos/adapters/in-memory-photos.query";
+import { MOCK_PHOTOS_API } from "../../features/photos/adapters/in-memory-photos.query";
 import {
   MOCK_ALBUMS_API,
   albumsApi,
 } from "../../features/albums/adapters/albums.adapters";
 import { AlbumsAPI } from "../../features/albums/application/albums.api";
+import { PhotosApi } from "../../features/photos/application/photos.api";
 
 // check https://codesandbox.io/s/rtk-query-github-example-nk4b1?file=/src/shared/redux/store.ts
 // good example of redux structure
@@ -23,10 +23,11 @@ export type AppDispatch = typeof store.dispatch;
 export function createStore(
   preloadedState: Partial<RootState>,
   adapters: {
-    photosQuery: AllPhotosQuery;
-  } & { albumsAPI: AlbumsAPI }
+    photosApi: PhotosApi;
+    albumsAPI: AlbumsAPI;
+  }
 ) {
-  const { photosQuery, albumsAPI } = adapters;
+  const { photosApi, albumsAPI } = adapters;
 
   const store = configureStore({
     reducer: rootReducer,
@@ -34,7 +35,7 @@ export function createStore(
       getDefaultMiddleware({
         thunk: {
           extraArgument: {
-            allPhotosQuery: photosQuery,
+            photosApi,
             albumsAPI,
           },
         },
@@ -51,8 +52,8 @@ const createProductionStore = () =>
       photos: [],
     },
     {
-      photosQuery: InMemoryPhotosQuery,
       albumsAPI: MOCK_ALBUMS_API,
+      photosApi: MOCK_PHOTOS_API,
     }
   );
 

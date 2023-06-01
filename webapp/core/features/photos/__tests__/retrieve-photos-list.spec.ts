@@ -1,10 +1,16 @@
-import { AllPhotosQuery } from "../queries/fetch-all-photos.query";
 import { fetchAllPhotos } from "../use-cases/retrieve-all-photos.use-case";
 import { createTestStore } from "../../../shared/store";
+import { MockPhotosApi } from "../__mocks__/photos-api.mock";
 
 describe("getAllPhotos", () => {
   it("should correctly return the list of photos", async () => {
-    const mockPhotosQuery: AllPhotosQuery = async () => [
+    const photosApi = new MockPhotosApi();
+    const testStore = createTestStore({
+      photos: [],
+      photosApi,
+    });
+
+    photosApi.photos = [
       {
         id: "1",
         url: "photo1.jpeg",
@@ -14,10 +20,6 @@ describe("getAllPhotos", () => {
         url: "photo2.jpeg",
       },
     ];
-    const testStore = createTestStore({
-      photos: [],
-      photosQuery: mockPhotosQuery,
-    });
 
     await testStore.dispatch(fetchAllPhotos());
 

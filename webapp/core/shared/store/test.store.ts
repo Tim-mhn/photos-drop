@@ -2,6 +2,9 @@ import { RootState, createStore } from "./store";
 import { Photos } from "../../features/photos/entities";
 import { AllPhotosQuery } from "../../features/photos/queries/fetch-all-photos.query";
 import { AlbumsAPI } from "../../features/albums/application/albums.api";
+import { Album } from "../../features/albums";
+import { PhotosApi } from "../../features/photos/application/photos.api";
+import { MOCK_PHOTOS_API } from "../../features/photos/adapters/in-memory-photos.query";
 
 export function createInMemoryPhotosQuery(photos: Photos): AllPhotosQuery {
   return createInMemoryQuery(photos);
@@ -13,7 +16,7 @@ export function createInMemoryQuery<T>(items: T[]): () => Promise<T[]> {
 
 type StoreProps = {
   photos: Photos;
-  photosQuery: AllPhotosQuery;
+  photosApi: PhotosApi;
   albumsAPI: AlbumsAPI;
 };
 
@@ -21,26 +24,28 @@ const DEFAULT_ALBUMS_API: AlbumsAPI = {
   createAlbum: async () => undefined,
   deleteAlbum: async () => undefined,
   fetchAllAlbums: async () => [],
+  addPhotosToAlbum: async () => undefined,
+  getAlbum: async () => <Album>(<any>{}),
+  getAlbumPhotos: async (albumId) => [],
 };
 
 const DEFAULT_STORE_PROPS: StoreProps = {
   photos: [],
-  photosQuery: createInMemoryQuery([]),
+  photosApi: MOCK_PHOTOS_API,
   albumsAPI: DEFAULT_ALBUMS_API,
 };
 export function createTestStore(props: Partial<StoreProps> = {}) {
-  const { photos, albumsAPI, photosQuery }: StoreProps = {
+  const { photos, albumsAPI, photosApi }: StoreProps = {
     ...DEFAULT_STORE_PROPS,
     ...props,
   };
 
   const initialState: Partial<RootState> = {
     photos,
-    // albums: albumsAdapter.getInitialState(),
   };
 
   return createStore(initialState, {
-    photosQuery,
+    photosApi,
     albumsAPI,
   });
 }

@@ -9,6 +9,7 @@ const customJestConfig = {
     "<rootDir>/node_modules/",
     "<rootDir>/.*builder.ts$",
     "<rootDir>/.*fixture.ts$",
+        "<rootDir>/.*mock.ts$",
   ],
 };
 module.exports = createJestConfig(customJestConfig);

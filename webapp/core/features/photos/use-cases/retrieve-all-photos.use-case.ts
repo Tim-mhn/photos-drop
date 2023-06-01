@@ -1,13 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { Photos } from "../entities";
-import { AllPhotosQuery } from "../queries/fetch-all-photos.query";
+import { PhotosApi } from "../application/photos.api";
 
 export const fetchAllPhotos = createAsyncThunk<
   { photos: Photos },
   void,
-  { extra: { allPhotosQuery: AllPhotosQuery } }
->("photos/fetchAllPhotos", async (_, { extra: { allPhotosQuery } }) => {
-  const photos = await allPhotosQuery();
+  { extra: { photosApi: PhotosApi } }
+>("photos/fetchAllPhotos", async (_, { extra: { photosApi } }) => {
+  const photos = await photosApi.getAllPhotos();
   return {
     photos,
   };
