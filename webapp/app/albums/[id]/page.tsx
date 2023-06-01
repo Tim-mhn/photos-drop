@@ -5,6 +5,7 @@ import {
   useGetAlbumPhotosQuery,
   useGetAlbumQuery,
 } from "../../../core/features/albums";
+import { AlbumActions } from "../../../components/album-actions";
 
 export default function AlbumPhotosPage({
   params,
@@ -21,11 +22,15 @@ export default function AlbumPhotosPage({
 
   return (
     <div className="flex flex-col w-full h-full justify-start gap-6">
-      <TextSkeleton isLoading={albumIsLoading}>
-        <div className="text-4xl text-fuchsia-600 tracking-tight font-black underline underline-offset-8">
-          {album?.name}
-        </div>
-      </TextSkeleton>
+      <div className="flex flex-grow justify-between items-center">
+        <TextSkeleton isLoading={albumIsLoading}>
+          <div className="text-4xl text-fuchsia-600 tracking-tight font-black underline underline-offset-8">
+            {album?.name}
+          </div>
+        </TextSkeleton>
+
+        <AlbumActions albumId={albumId} />
+      </div>
 
       <div className="overflow-hidden">
         <PhotosList photos={photos} />

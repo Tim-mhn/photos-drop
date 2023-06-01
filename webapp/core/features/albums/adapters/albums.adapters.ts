@@ -19,10 +19,10 @@ export const albumsApi = createApi({
       },
       providesTags: [ALBUM_LIST_TAG],
     }),
-    deleteAlbum: build.mutation<void, AlbumId>({
+    deleteAlbum: build.mutation<AlbumId, AlbumId>({
       async queryFn(albumToDeleteId: AlbumId) {
         await MOCK_ALBUMS_API.deleteAlbum(albumToDeleteId);
-        return { data: undefined };
+        return { data: albumToDeleteId };
       },
       invalidatesTags: [ALBUM_LIST_TAG],
     }),

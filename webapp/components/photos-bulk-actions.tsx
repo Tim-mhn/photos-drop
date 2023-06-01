@@ -90,11 +90,11 @@ export const AddPhotosToAlbumDialog = ({
         </DialogTitle>
       }
     >
-      <div className="flex flex-col items-start gap-1">
+      <div className="flex flex-col items-start gap-1 ">
         {albums.map((a) => (
           <div
             key={a.id}
-            className="flex gap-3 items-center flex-grow w-full px-4 py-3 hover:bg-pink-50 cursor-pointer"
+            className="flex gap-3 items-center  flex-grow w-full px-4 py-3 hover:bg-pink-200 cursor-pointer border-r-2 border-t-2 border-b-2  border-black "
             onClick={() => onAlbumClick(a)}
           >
             <Image
@@ -104,7 +104,7 @@ export const AddPhotosToAlbumDialog = ({
               width={40}
               className="h-10 w-10"
             />
-            <div className="font-semibold text-sm text-gray-700">{a.name}</div>
+            <div className="font-semibold text-sm text-black">{a.name}</div>
           </div>
         ))}
       </div>
