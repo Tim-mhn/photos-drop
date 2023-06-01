@@ -1,10 +1,12 @@
 import { randomId } from "../../../../shared/utils";
-import { getAlbumPhotos } from "../../album-photos";
 import { Photos } from "../../photos";
 import { AlbumsAPI } from "../application/albums.api";
 import { Album, Albums } from "../domain";
 
 export class MockAlbumsApi implements AlbumsAPI {
+  async addPhotosToAlbum(_args: { photos: Photos; album: Album }) {
+    await this._wait(this.TIMEOUT);
+  }
   private readonly TIMEOUT = 300;
   async getAlbum(albumId: string): Promise<Album> {
     await this._wait(this.TIMEOUT);
@@ -43,7 +45,10 @@ export class MockAlbumsApi implements AlbumsAPI {
   }
 
   async getAlbumPhotos(albumId: string): Promise<Photos> {
-    return getAlbumPhotos({ albumId });
+    return new Array(30).fill("").map((_, n) => ({
+      id: n.toString(),
+      url: `https://api.dicebear.com/6.x/personas/svg?seed=${n}`,
+    }));
   }
 
   private COVER_PHOTO =

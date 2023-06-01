@@ -1,9 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 import { useState } from "react";
-import { Photo, Photos } from "../../core/features/photos";
+import { Photo, Photos } from "../../../core/features/photos";
 import { PhotoComponent } from "../photo";
 import { PhotosBulkActions } from "../photos-bulk-actions";
-import { FullScreenPhotoGallery } from "../full-screen-photo-gallery/full-screen-photo-gallery";
+import { FullScreenPhotoGallery } from "../full-screen-photo-gallery";
 
 type PhotosListProps = {
   photos: Photos;

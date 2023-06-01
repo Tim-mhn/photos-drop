@@ -4,12 +4,12 @@ import {
   ArrowLeftIcon,
   ArrowRightCircleIcon,
 } from "@heroicons/react/20/solid";
+import { Photo, Photos } from "../../core/features/photos";
 import { DialogUI } from "../ui";
-import { Photos, Photo } from "../../core/features/photos";
 import {
   getNextPhoto,
   getPreviousPhoto,
-} from "../photos-list/previous-next-photo";
+} from "./photos-list/previous-next-photo";
 
 export const FullScreenPhotoGallery = ({
   fullScreenPhoto,

@@ -2,7 +2,7 @@
 import Link from "next/link";
 /* eslint-disable @next/next/no-img-element */
 import { Divider, LoaderIf } from "../../components/ui";
-import { CreateAlbumButton } from "../../components/create-album/create-album-button";
+import { CreateAlbumButton } from "../../components/albums/create-album/create-album-button";
 import {
   Album,
   useDeleteAlbumMutation,

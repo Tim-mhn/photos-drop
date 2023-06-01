@@ -1,6 +1,6 @@
 "use client";
-import { useDeleteAlbumMutation } from "../core/features/albums";
-import { Dropdown, DropdownOptionCmp, IconButton } from "./ui";
+import { useDeleteAlbumMutation } from "../../core/features/albums";
+import { Dropdown, DropdownOptionCmp, IconButton } from "../ui";
 import { useRouter } from "next/navigation";
 
 export const AlbumActions = ({ albumId }: { albumId: string }) => {

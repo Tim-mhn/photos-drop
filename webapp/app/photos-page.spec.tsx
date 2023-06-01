@@ -1,4 +1,4 @@
-import { updateSelectedPhotos } from "../components/photos-list/photos-list";
+import { updateSelectedPhotos } from "../components/photos/photos-list/photos-list";
 import {
   Photo,
   Photos,

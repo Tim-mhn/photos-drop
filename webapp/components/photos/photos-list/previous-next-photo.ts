@@ -1,4 +1,4 @@
-import { Photo, Photos } from "../../core/features/photos";
+import { Photo, Photos } from "../../../core/features/photos";
 
 export function getPreviousPhoto({
   allPhotos,

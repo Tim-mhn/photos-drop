@@ -1,11 +1,11 @@
 "use client";
 import { LoaderIf, TextSkeleton } from "../../../components/ui";
-import { PhotosList } from "../../../components/photos-list/photos-list";
+import { PhotosList } from "../../../components/photos/photos-list/photos-list";
 import {
   useGetAlbumPhotosQuery,
   useGetAlbumQuery,
 } from "../../../core/features/albums";
-import { AlbumActions } from "../../../components/album-actions";
+import { AlbumActions } from "../../../components/albums/album-actions";
 
 export default function AlbumPhotosPage({
   params,

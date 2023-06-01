@@ -1,12 +1,13 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Album, AlbumId, AlbumName, Albums } from "../domain";
 import { MockAlbumsApi } from "./mock-albums.api";
-import { AlbumsAPI } from "../application/albums.api";
+import { AddPhotosToAlbumInput, AlbumsAPI } from "../application/albums.api";
 import { Photos } from "../../photos";
 
 export const MOCK_ALBUMS_API: AlbumsAPI = new MockAlbumsApi();
 
 const ALBUM_LIST_TAG = "album-list" as const;
+
 export const albumsApi = createApi({
   reducerPath: "albumsApi",
   tagTypes: [ALBUM_LIST_TAG],
@@ -45,6 +46,12 @@ export const albumsApi = createApi({
         return { data: albumPhotos };
       },
     }),
+    addPhotosToAlbum: build.mutation<AlbumId, AddPhotosToAlbumInput>({
+      async queryFn(input: AddPhotosToAlbumInput) {
+        await MOCK_ALBUMS_API.addPhotosToAlbum(input);
+        return { data: input.album.id };
+      },
+    }),
   }),
 });
 
@@ -54,4 +61,5 @@ export const {
   useCreateAlbumMutation,
   useGetAlbumQuery,
   useGetAlbumPhotosQuery,
+  useAddPhotosToAlbumMutation,
 } = albumsApi;

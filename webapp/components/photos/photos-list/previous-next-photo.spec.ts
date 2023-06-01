@@ -1,4 +1,4 @@
-import { Photos } from "../../core/features/photos";
+import { Photos } from "../../../core/features/photos";
 import { getNextPhoto, getPreviousPhoto } from "./previous-next-photo";
 
 describe("getPreviousPhoto", () => {

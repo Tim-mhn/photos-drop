@@ -4,14 +4,17 @@ import {
   Dropdown,
   DialogUI,
   DialogTitle,
-} from "./ui";
+} from "../ui";
 import { useState } from "react";
 import Image from "next/image";
-import { CreateAlbumDialog } from "./create-album/create-album-dialog";
-import { Photos } from "../core/features/photos";
-import { Album, useGetAllAlbumsQuery } from "../core/features/albums";
-import { addPhotosToAlbum } from "../core/features/album-photos";
-import { IconButton } from "./ui/icon-button";
+import { CreateAlbumDialog } from "../albums/create-album/create-album-dialog";
+import { Photos } from "../../core/features/photos";
+import {
+  Album,
+  useAddPhotosToAlbumMutation,
+  useGetAllAlbumsQuery,
+} from "../../core/features/albums";
+import { IconButton } from "../ui/icon-button";
 
 export const PhotosBulkActions = ({
   selectedPhotos,
@@ -23,6 +26,7 @@ export const PhotosBulkActions = ({
   unSelectPhotos: () => void;
 }) => {
   const { data } = useGetAllAlbumsQuery();
+  const [addPhotosToAlbum] = useAddPhotosToAlbumMutation();
   const albums = data || [];
   const [addToAlbumDialogOpen, setAddToAlbumDialogOpen] = useState(false);
   const [createAlbumDialogOpen, setCreateAlbumDialogOpen] = useState(false);

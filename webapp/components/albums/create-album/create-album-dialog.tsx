@@ -1,14 +1,14 @@
 import { object, string } from "yup";
-import { Photos } from "../../core/features/photos";
+import { Photos } from "../../../core/features/photos";
 import {
   Button,
   DialogTitle,
   DialogUI,
   ErrorMessageWrapper,
   Input,
-} from "../ui";
+} from "../../ui";
 import { Form, Formik } from "formik";
-import { useCreateAlbumMutation } from "../../core/features/albums";
+import { useCreateAlbumMutation } from "../../../core/features/albums";
 
 const newGroupSchema = object().shape({
   name: string().min(1).required(),

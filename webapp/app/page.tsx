@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect } from "react";
-import { PhotosList } from "../components/photos-list/photos-list";
+import { PhotosList } from "../components/photos/photos-list/photos-list";
 import { useDispatch } from "react-redux";
 import { fetchAllPhotos } from "../core/features/photos/use-cases/retrieve-all-photos.use-case";
 import { useAppSelector, AppDispatch } from "../core/shared/store";
