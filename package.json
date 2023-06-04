@@ -4,12 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev:webapp": "npm run dev --workspace=webapp",
+    "webapp:dev": "npm run dev --workspace=webapp",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "workspaces": [
-    "packages/webapp",
-    "packages/backend"
+    "packages/*"
   ],
   "repository": {
     "type": "git",
@@ -20,5 +19,9 @@
   "bugs": {
     "url": "https://github.com/Tim-mhn/photos-drop/issues"
   },
-  "homepage": "https://github.com/Tim-mhn/photos-drop#readme"
+  "homepage": "https://github.com/Tim-mhn/photos-drop#readme",
+  "devDependencies": {
+    "@tim-mhn/eslint-config": "^0.0.1",
+    "eslint": "^8.42.0"
+  }
 }
