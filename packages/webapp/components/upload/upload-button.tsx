@@ -46,7 +46,7 @@ function buildFormDataFromFileList(fileList: FileList) {
   console.log(fileList);
   const formData = new FormData();
   for (let i = 0; i < fileList.length; i++) {
-    formData.append("file", fileList[i] as File);
+    formData.append("files", fileList[i] as File);
   }
   return formData;
 }
