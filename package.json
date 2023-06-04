@@ -1,0 +1,24 @@
+{
+  "name": "photos-drop",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev:webapp": "npm run dev --workspace=webapp",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "workspaces": [
+    "packages/webapp",
+    "packages/backend"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tim-mhn/photos-drop.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Tim-mhn/photos-drop/issues"
+  },
+  "homepage": "https://github.com/Tim-mhn/photos-drop#readme"
+}
