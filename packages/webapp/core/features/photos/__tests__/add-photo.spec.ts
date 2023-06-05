@@ -7,7 +7,7 @@ describe("addPhotos", () => {
 
     testStore.dispatch(addPhoto({ id: "1", url: "photo1.jpeg" }));
 
-    expect(testStore.getState().photos).toEqual([
+    expect(testStore.getState().photos.photos).toEqual([
       { id: "1", url: "photo1.jpeg" },
     ]);
   });
@@ -20,6 +20,6 @@ describe("addPhotos", () => {
     testStore.dispatch(addPhoto({ id: "2", url: "photo2.jpeg" }));
     testStore.dispatch(addPhoto({ id: "3", url: "photo3.jpeg" }));
 
-    expect(testStore.getState().photos.length).toEqual(3);
+    expect(testStore.getState().photos.photos.length).toEqual(3);
   });
 });

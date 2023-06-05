@@ -15,7 +15,7 @@ export class MockPhotosApi implements PhotosApi {
   }
 
   async uploadPhotos(formData: FormData) {
-    await this._wait(5000);
+    // await this._wait(5000);
     try {
       formData.forEach((f) => {
         this.photos = [

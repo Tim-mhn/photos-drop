@@ -23,7 +23,7 @@ describe("getAllPhotos", () => {
 
     await testStore.dispatch(fetchAllPhotos());
 
-    expect(testStore.getState().photos).toEqual([
+    expect(testStore.getState().photos.photos).toEqual([
       {
         id: "1",
         url: "photo1.jpeg",
