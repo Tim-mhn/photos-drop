@@ -3,21 +3,21 @@ import {
   createEntityAdapter,
   createSlice,
 } from "@reduxjs/toolkit";
-import { Photo, Photos } from "./entities";
+import { Image, Images } from "@shared";
 import { fetchAllPhotos } from "./use-cases/retrieve-all-photos.use-case";
 import { uploadPhotos } from "./use-cases/upload-photos.use-case";
 
-const initialState: { photos: Photos; uploading: boolean } = {
+const initialState: { photos: Images; uploading: boolean } = {
   photos: [],
   uploading: false,
 };
-export const photosAdapter = createEntityAdapter<Photo>();
+export const photosAdapter = createEntityAdapter<Image>();
 
 export const photosSlice = createSlice({
   name: "photos",
   initialState,
   reducers: {
-    addPhoto: (state, action: PayloadAction<Photo>) => {
+    addPhoto: (state, action: PayloadAction<Image>) => {
       state.photos.push(action.payload);
     },
   },

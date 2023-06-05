@@ -4,7 +4,7 @@ import {
   ArrowLeftIcon,
   ArrowRightCircleIcon,
 } from "@heroicons/react/20/solid";
-import { Photo, Photos } from "../../core/features/photos";
+import { Image, Images } from "@shared";
 import { DialogUI } from "../ui";
 import {
   getNextPhoto,
@@ -18,9 +18,9 @@ export const FullScreenPhotoGallery = ({
   open,
   close,
 }: {
-  fullScreenPhoto: Photo | undefined;
-  setFullScreenPhoto: (photo: Photo) => void;
-  allPhotos: Photos;
+  fullScreenPhoto: Image | undefined;
+  setFullScreenPhoto: (photo: Image) => void;
+  allPhotos: Images;
   open: boolean;
   close: () => void;
 }) => {

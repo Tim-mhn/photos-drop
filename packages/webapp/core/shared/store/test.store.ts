@@ -1,12 +1,12 @@
 import { RootState, createStore } from "./store";
-import { Photos } from "../../features/photos/entities";
+import { Images } from "@shared";
 import { AlbumsAPI } from "../../features/albums/application/albums.api";
 import { Album } from "../../features/albums";
 import { PhotosApi } from "../../features/photos/application/photos.api";
 import { MOCK_PHOTOS_API } from "../../features/photos/adapters/in-memory-photos.query";
 
 type StoreProps = {
-  photos: Photos;
+  photos: Images;
   photosApi: PhotosApi;
   albumsAPI: AlbumsAPI;
 };

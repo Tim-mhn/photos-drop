@@ -1,9 +1,8 @@
 import { randomId } from "../../../../shared/utils";
 import { PhotosApi } from "../application/photos.api";
-import { Photos } from "../entities";
-import axios from "axios";
+import { Images } from "@shared";
 export class MockPhotosApi implements PhotosApi {
-  constructor(public photos: Photos = []) {}
+  constructor(public photos: Images = []) {}
 
   async getAllPhotos() {
     return this.photos;

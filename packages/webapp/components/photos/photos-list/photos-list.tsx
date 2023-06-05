@@ -42,9 +42,10 @@ export const PhotosList = ({ photos }: PhotosListProps) => {
         />
       )}
 
-      <div className="flex flex-grow  grid grid-cols-6 overflow-auto border border-4 rounded-md border-fuchsia-500">
+      <div className="flex flex-grow content-start grid grid-cols-6 overflow-auto border border-4 rounded-md border-fuchsia-500">
         {photos?.map((photo, n) => (
           <div
+            className="h-fit w-fit"
             onClick={() => openFullScreenGalleryWithInitialPhoto(photo)}
             key={photo.id}
           >

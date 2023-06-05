@@ -1,5 +1,5 @@
 import { object, string } from "yup";
-import { Photos } from "../../../core/features/photos";
+import { Images } from "@shared";
 import {
   Button,
   DialogTitle,
@@ -21,7 +21,7 @@ export const CreateAlbumDialog = ({
 }: {
   closeDialog: () => void;
   open: boolean;
-  selectedPhotos: Photos;
+  selectedPhotos: Images;
   onAlbumCreated?: () => void;
 }) => {
   const [createAlbum] = useCreateAlbumMutation();

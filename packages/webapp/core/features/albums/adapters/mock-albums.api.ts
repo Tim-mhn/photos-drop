@@ -1,10 +1,10 @@
 import { randomId } from "../../../../shared/utils";
-import { Photos } from "../../photos";
+import { Images } from "@shared";
 import { AlbumsAPI } from "../application/albums.api";
 import { Album, Albums } from "../domain";
 
 export class MockAlbumsApi implements AlbumsAPI {
-  async addPhotosToAlbum(_args: { photos: Photos; album: Album }) {
+  async addPhotosToAlbum(_args: { photos: Images; album: Album }) {
     await this._wait(this.TIMEOUT);
   }
   private readonly TIMEOUT = 300;
@@ -44,7 +44,7 @@ export class MockAlbumsApi implements AlbumsAPI {
     this.albums = [...this.albums, randomAlbum];
   }
 
-  async getAlbumPhotos(albumId: string): Promise<Photos> {
+  async getAlbumPhotos(albumId: string): Promise<Images> {
     return new Array(30).fill("").map((_, n) => ({
       id: n.toString(),
       url: `https://api.dicebear.com/6.x/personas/svg?seed=${n}`,

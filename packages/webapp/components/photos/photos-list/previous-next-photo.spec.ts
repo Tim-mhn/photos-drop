@@ -1,9 +1,9 @@
-import { Photos } from "../../../core/features/photos";
+import { Images } from "@shared";
 import { getNextPhoto, getPreviousPhoto } from "./previous-next-photo";
 
 describe("getPreviousPhoto", () => {
   it("should correctly return the previous photo from the list", () => {
-    const allPhotos: Photos = [
+    const allPhotos: Images = [
       {
         id: "photo1",
         url: "photo1.jpeg",
@@ -34,7 +34,7 @@ describe("getPreviousPhoto", () => {
   });
 
   it("should return null if there are no previous photos", () => {
-    const allPhotos: Photos = [
+    const allPhotos: Images = [
       {
         id: "photo1",
         url: "photo1.jpeg",

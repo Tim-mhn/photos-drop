@@ -1,13 +1,13 @@
 "use client";
 import { useState } from "react";
 import { Button } from "../../ui";
-import { Photos } from "../../../core/features/photos";
+import { Images } from "@shared";
 import { CreateAlbumDialog } from "./create-album-dialog";
 
 export const CreateAlbumButton = (
-  { selectedPhotos }: { selectedPhotos: Photos } = {
+  { selectedPhotos }: { selectedPhotos: Images } = {
     selectedPhotos: [],
-  }
+  },
 ) => {
   const [open, setOpen] = useState(false);
 

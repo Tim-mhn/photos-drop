@@ -1,28 +1,25 @@
 import { updateSelectedPhotos } from "../components/photos/photos-list/photos-list";
-import {
-  Photo,
-  Photos,
-} from "../core/features/photos/use-cases/retrieve-all-photos.use-case";
+import { Image, Images } from "@shared";
 
 describe("TogglePhotoSelection", () => {
   it("should add the photo id if there are no photos selected", () => {
-    const noPhotosSelected = [] as Photos;
+    const noPhotosSelected = [] as Images;
 
-    const togglePhoto: Photo = {
+    const togglePhoto: Image = {
       id: "photo1",
       url: "http://photo1.jpeg",
     };
 
     const updatedSelectedPhotosIds = updateSelectedPhotos(
       noPhotosSelected,
-      togglePhoto
+      togglePhoto,
     );
 
     expect(updatedSelectedPhotosIds).toEqual([togglePhoto]);
   });
 
   it("should remove the photo id if the photo id is already in the photos selected", () => {
-    const togglePhoto: Photo = {
+    const togglePhoto: Image = {
       id: "photo1",
       url: "http://photo1.jpeg",
     };
@@ -31,7 +28,7 @@ describe("TogglePhotoSelection", () => {
 
     const updatedSelectedPhotosIds = updateSelectedPhotos(
       photosSelected,
-      togglePhoto
+      togglePhoto,
     );
 
     expect(updatedSelectedPhotosIds).toEqual([
@@ -40,7 +37,7 @@ describe("TogglePhotoSelection", () => {
   });
 
   it("should work with a photo with the right id with a different object reference", () => {
-    const togglePhoto: Photo = {
+    const togglePhoto: Image = {
       id: "photo1",
       url: "http://photo1.jpeg",
     };

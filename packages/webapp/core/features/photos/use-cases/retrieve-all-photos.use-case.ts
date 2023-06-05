@@ -1,9 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { Photos } from "../entities";
+import { Images } from "@shared";
 import { PhotosApi } from "../application/photos.api";
 
 export const fetchAllPhotos = createAsyncThunk<
-  { photos: Photos },
+  { photos: Images },
   void,
   { extra: { photosApi: PhotosApi } }
 >("photos/fetchAllPhotos", async (_, { extra: { photosApi } }) => {

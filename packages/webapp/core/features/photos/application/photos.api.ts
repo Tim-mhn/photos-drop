@@ -1,6 +1,6 @@
-import { Photos } from "../entities";
+import { Images } from "@shared";
 
 export interface PhotosApi {
-  getAllPhotos(): Promise<Photos>;
+  getAllPhotos(): Promise<Images>;
   uploadPhotos(formData: FormData): Promise<void>;
 }

@@ -1,5 +1,5 @@
 import { createTestStore } from "../../../shared/store";
-import { Photos } from "../entities";
+import { Images } from "@shared";
 import { uploadPhotos } from "../use-cases/upload-photos.use-case";
 import { MockPhotosApi } from "../__mocks__/photos-api.mock";
 
@@ -30,7 +30,7 @@ class PhotosTestFixture {
   mockApi = new MockPhotosApi();
 
   store!: ReturnType<typeof createTestStore>;
-  givenInitialPhotosAre(photos: Photos) {
+  givenInitialPhotosAre(photos: Images) {
     this.store = createTestStore({
       photos: [],
       photosApi: this.mockApi,

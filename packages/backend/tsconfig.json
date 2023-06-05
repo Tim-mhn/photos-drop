@@ -18,12 +18,9 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@backend/core": [
-        "libs/core/src"
-      ],
-      "@backend/core/*": [
-        "libs/core/src/*"
-      ]
+      "@backend/core": ["libs/core/src"],
+      "@backend/core/*": ["libs/core/src/*"],
+      "@shared": ["../shared/src"]
     }
   }
 }

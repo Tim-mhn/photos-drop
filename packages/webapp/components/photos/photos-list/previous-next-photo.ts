@@ -1,12 +1,11 @@
-import { Photo, Photos } from "../../../core/features/photos";
-
+import { Image, Images } from "@shared";
 export function getPreviousPhoto({
   allPhotos,
   currentPhoto,
 }: {
-  allPhotos: Photos;
-  currentPhoto: Photo;
-}): Photo {
+  allPhotos: Images;
+  currentPhoto: Image;
+}): Image {
   return getFollowingPhotoFromList({ allPhotos, currentPhoto, step: -1 });
 }
 
@@ -14,9 +13,9 @@ export function getNextPhoto({
   allPhotos,
   currentPhoto,
 }: {
-  allPhotos: Photos;
-  currentPhoto: Photo;
-}): Photo {
+  allPhotos: Images;
+  currentPhoto: Image;
+}): Image {
   return getFollowingPhotoFromList({ allPhotos, currentPhoto, step: 1 });
 }
 
@@ -25,8 +24,8 @@ function getFollowingPhotoFromList({
   currentPhoto,
   step,
 }: {
-  allPhotos: Photos;
-  currentPhoto: Photo;
+  allPhotos: Images;
+  currentPhoto: Image;
   step: number;
 }) {
   const currentIndex = allPhotos.findIndex((p) => p.id === currentPhoto.id);

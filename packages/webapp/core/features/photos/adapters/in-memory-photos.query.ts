@@ -1,7 +1,7 @@
 import axios from "axios";
 import { MockPhotosApi } from "../__mocks__/photos-api.mock";
 import { PhotosApi } from "../application/photos.api";
-import { Photos } from "../entities";
+import { Images } from "@shared";
 
 const photos = Array(30)
   .fill("")
@@ -13,8 +13,8 @@ const photos = Array(30)
 export const MOCK_PHOTOS_API = new MockPhotosApi(photos);
 
 class HttpPhotosApi implements PhotosApi {
-  async getAllPhotos(): Promise<Photos> {
-    const { data } = await axios.get<Photos>("http://localhost:8000/images");
+  async getAllPhotos(): Promise<Images> {
+    const { data } = await axios.get<Images>("http://localhost:8000/images");
     return data;
   }
   uploadPhotos(formData: FormData): Promise<void> {
