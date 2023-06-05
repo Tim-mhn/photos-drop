@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
-import { ImageRepositoryProvider } from './upload/provider';
-import { UploadFilesUsecase } from './upload/upload.use-case';
+import { ImageRepositoryProvider } from './images/provider';
+import { UploadFilesUsecase } from './images/upload.use-case';
+import { GetAllImagesUseCase } from './images/get-all-images.use-case';
 
 @Module({
-  providers: [ImageRepositoryProvider, UploadFilesUsecase],
-  exports: [UploadFilesUsecase],
+  providers: [ImageRepositoryProvider, UploadFilesUsecase, GetAllImagesUseCase],
+  exports: [UploadFilesUsecase, GetAllImagesUseCase],
 })
 export class CoreModule {}

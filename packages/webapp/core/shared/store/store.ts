@@ -1,6 +1,9 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { photosReducer } from "../../features/photos/photosSlice";
-import { MOCK_PHOTOS_API } from "../../features/photos/adapters/in-memory-photos.query";
+import {
+  PHOTOS_API,
+  MOCK_PHOTOS_API,
+} from "../../features/photos/adapters/in-memory-photos.query";
 import {
   MOCK_ALBUMS_API,
   albumsApi,
@@ -25,7 +28,7 @@ export function createStore(
   adapters: {
     photosApi: PhotosApi;
     albumsAPI: AlbumsAPI;
-  }
+  },
 ) {
   const { photosApi, albumsAPI } = adapters;
 
@@ -56,8 +59,8 @@ const createProductionStore = () =>
     },
     {
       albumsAPI: MOCK_ALBUMS_API,
-      photosApi: MOCK_PHOTOS_API,
-    }
+      photosApi: PHOTOS_API,
+    },
   );
 
 export const store = createProductionStore();

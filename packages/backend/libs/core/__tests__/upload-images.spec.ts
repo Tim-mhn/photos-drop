@@ -1,5 +1,5 @@
-import { ImageRepository } from '../src/upload/image.repository';
-import { UploadFilesUsecase } from '../src/upload/upload.use-case';
+import { ImageRepository } from '../src/images/image.repository';
+import { UploadFilesUsecase } from '../src/images/upload.use-case';
 
 describe('upload images', () => {
   let usecase: UploadFilesUsecase;
@@ -8,6 +8,7 @@ describe('upload images', () => {
   beforeEach(() => {
     repo = {
       uploadToStorage: jest.fn(),
+      getAllImages: jest.fn(),
     };
     usecase = new UploadFilesUsecase(repo);
   });

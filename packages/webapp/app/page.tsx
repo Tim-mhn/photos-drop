@@ -7,6 +7,7 @@ import { useAppSelector, AppDispatch } from "../core/shared/store";
 
 export default function PhotosPage() {
   const photos = useAppSelector((state) => state.photos.photos);
+  console.log(photos);
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
     dispatch(fetchAllPhotos());

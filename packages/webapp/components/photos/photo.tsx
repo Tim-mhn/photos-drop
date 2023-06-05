@@ -32,7 +32,7 @@ export function PhotoComponent({
         src={photo.url}
         width="240"
         height="240"
-        className="h-60 w-60 border border-gray-100 shadow-sm"
+        className="h-60 w-60 border border-gray-100 shadow-sm object-cover"
       />
 
       <div

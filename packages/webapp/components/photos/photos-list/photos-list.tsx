@@ -14,7 +14,7 @@ export const PhotosList = ({ photos }: PhotosListProps) => {
   const togglePhotoSelection = (photo: Photo) => {
     const updatedSelectedPhotosIds = updateSelectedPhotos(
       selectedPhotos,
-      photo
+      photo,
     );
     setSelectedPhotos(updatedSelectedPhotosIds);
   };
@@ -22,7 +22,7 @@ export const PhotosList = ({ photos }: PhotosListProps) => {
   const unselectAllPhotos = () => setSelectedPhotos([]);
 
   const [fullScreenPhoto, setFullScreenPhoto] = useState<Photo | undefined>(
-    undefined
+    undefined,
   );
 
   const [fullScreenGalleryOpen, setFullScreenGalleryOpen] = useState(false);
@@ -43,7 +43,7 @@ export const PhotosList = ({ photos }: PhotosListProps) => {
       )}
 
       <div className="flex flex-grow  grid grid-cols-6 overflow-auto border border-4 rounded-md border-fuchsia-500">
-        {photos.map((photo, n) => (
+        {photos?.map((photo, n) => (
           <div
             onClick={() => openFullScreenGalleryWithInitialPhoto(photo)}
             key={photo.id}
@@ -70,15 +70,15 @@ export const PhotosList = ({ photos }: PhotosListProps) => {
 
 export function updateSelectedPhotos(
   currentSelectedPhotos: Photo[],
-  toggledPhoto: Photo
+  toggledPhoto: Photo,
 ) {
   const photoIsAlreadySelected = listIncludesPhoto(
     currentSelectedPhotos,
-    toggledPhoto
+    toggledPhoto,
   );
   if (photoIsAlreadySelected) {
     const photosWithoutToggledPhoto = currentSelectedPhotos.filter(
-      (photo) => photo.id != toggledPhoto.id
+      (photo) => photo.id != toggledPhoto.id,
     );
     return photosWithoutToggledPhoto;
   }
