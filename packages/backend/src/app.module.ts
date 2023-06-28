@@ -1,8 +1,9 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { CoreModule } from '../libs/core/src/core.module';
 import { ImagesController } from './images/images.controller';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { isAuthMiddleware } from './auth.middleware';
 
 const rootPath = join(__dirname, '..', 'images');
 @Module({
@@ -15,4 +16,8 @@ const rootPath = join(__dirname, '..', 'images');
   controllers: [ImagesController],
   providers: [],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(isAuthMiddleware).forRoutes(ImagesController);
+  }
+}

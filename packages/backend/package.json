@@ -24,6 +24,7 @@
     "@nestjs/core": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/serve-static": "^3.0.1",
+    "express-oauth2-jwt-bearer": "^1.5.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0"
   },

@@ -1,15 +1,18 @@
 <script setup lang="ts">
-import { useAuth0 } from '@auth0/auth0-vue';
 import { useQuery } from '@tanstack/vue-query';
-import axios from "axios"
-// import { Images } from "@shared"
+import { getImagesFn } from "../api"
+import { useAuth0 } from '@auth0/auth0-vue';
 
-const getImagesFn = async () => {
-    const res = await axios.get<any>("http://localhost:8000/images");
-    return res.data
+
+
+
+const { getAccessTokenSilently } = useAuth0()
+
+const getImages = async () => {
+    const token = await getAccessTokenSilently()
+    return getImagesFn(token)
 }
-
-const { data: images, isLoading } = useQuery({ queryKey: ['images'], queryFn: getImagesFn });
+const { data: images, isLoading } = useQuery({ queryKey: ['images'], queryFn: getImages });
 
 const skeletonsArray = new Array(20).fill("")
 
