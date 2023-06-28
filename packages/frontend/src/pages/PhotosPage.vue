@@ -1,12 +1,11 @@
 <script setup lang="ts">
+import { useAuth0 } from '@auth0/auth0-vue';
 import { useQuery } from '@tanstack/vue-query';
 import axios from "axios"
-import { Images } from "@shared"
-
-// const queryClient = useQueryClient();
+// import { Images } from "@shared"
 
 const getImagesFn = async () => {
-    const res = await axios.get<Images>("http://localhost:8000/images");
+    const res = await axios.get<any>("http://localhost:8000/images");
     return res.data
 }
 
@@ -21,6 +20,8 @@ const skeletonsArray = new Array(20).fill("")
 <template>
     <div class="p-2 flex flex-col gap-4">
         <div>Photos page</div>
+
+
 
 
         <div class="flex flex-wrap gap-4  overflow-hidden">

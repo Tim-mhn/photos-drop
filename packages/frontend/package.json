@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@auth0/auth0-vue": "^2.2.0",
     "@tanstack/vue-query": "^4.29.19",
     "axios": "^1.4.0",
     "vue": "^3.2.47",
