@@ -8,6 +8,7 @@ import { createVuetify } from "vuetify";
 import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
 import { createAuth0 } from "@auth0/auth0-vue";
+import { createApiClient } from "./api";
 
 const vuetify = createVuetify({
   components,
@@ -22,9 +23,12 @@ const auth0 = createAuth0({
   },
 });
 
+const apiClient = createApiClient(auth0);
+
 createApp(App)
   .use(VueQueryPlugin)
   .use(router)
   .use(vuetify)
   .use(auth0)
+  .use(apiClient)
   .mount("#app");

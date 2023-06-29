@@ -1,22 +1,16 @@
 <script setup lang="ts">
-import Header from "./components/Header.vue"
-import SideNav from "./components/SideNav.vue"
+import { provide } from "vue";
+import { APIClient, API_CLIENT_KEY } from "./api";
+import { useAuth0 } from "@auth0/auth0-vue";
+const authClient = useAuth0()
+provide(API_CLIENT_KEY, new APIClient(authClient))
 </script>
 
 <template>
   <div class="flex flex-col h-screen w-screen overflow-hidden">
 
-    <Header />
+    <router-view></router-view>
 
-    <div class="flex flex-grow w-full overflow-hidden w-screen">
-      <SideNav />
-
-      <div class="overflow-auto relative justify-center max-h-full min-w-[600px]">
-        <div class="w-full ">
-          <router-view></router-view>
-        </div>
-      </div>
-    </div>
 
 
   </div>

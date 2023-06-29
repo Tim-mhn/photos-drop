@@ -1,18 +1,15 @@
 <script setup lang="ts">
 import { useQuery } from '@tanstack/vue-query';
-import { getImagesFn } from "../api"
-import { useAuth0 } from '@auth0/auth0-vue';
+import { fetchImages, useAPIClient } from '../../api';
+
+
+const client = useAPIClient()
+
+const fetchImagesFn = () => fetchImages(client)
 
 
 
-
-const { getAccessTokenSilently } = useAuth0()
-
-const getImages = async () => {
-    const token = await getAccessTokenSilently()
-    return getImagesFn(token)
-}
-const { data: images, isLoading } = useQuery({ queryKey: ['images'], queryFn: getImages });
+const { data: images, isLoading } = useQuery({ queryKey: ['images'], queryFn: fetchImagesFn });
 
 const skeletonsArray = new Array(20).fill("")
 
