@@ -1,8 +1,15 @@
+import { QueryClient } from "@tanstack/vue-query";
 import { APIClient } from ".";
 
-export async function uploadImages(client: APIClient, images: FileList) {
+export const IMAGES_QUERY_KEY = "IMAGES" as const;
+export async function uploadImages(
+  client: APIClient,
+  queryClient: QueryClient,
+  images: FileList,
+) {
   const formData = buildFormDataFromFileList(images);
-  client.post("http://localhost:8000/images/upload", formData);
+  await client.post("http://localhost:8000/images/upload", formData);
+  await queryClient.invalidateQueries({ queryKey: [IMAGES_QUERY_KEY] });
 }
 
 function buildFormDataFromFileList(fileList: FileList) {

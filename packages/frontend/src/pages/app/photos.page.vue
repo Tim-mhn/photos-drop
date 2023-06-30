@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useQuery } from '@tanstack/vue-query';
-import { fetchImages, useAPIClient } from '../../api';
+import { IMAGES_QUERY_KEY, fetchImages, useAPIClient } from '../../api';
 
 
 const client = useAPIClient()
@@ -9,7 +9,7 @@ const fetchImagesFn = () => fetchImages(client)
 
 
 
-const { data: images, isLoading } = useQuery({ queryKey: ['images'], queryFn: fetchImagesFn });
+const { data: images, isLoading } = useQuery({ queryKey: [IMAGES_QUERY_KEY], queryFn: fetchImagesFn });
 
 const skeletonsArray = new Array(20).fill("")
 
