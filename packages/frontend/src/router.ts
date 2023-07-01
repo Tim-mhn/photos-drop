@@ -1,20 +1,23 @@
+import { authGuard } from "@auth0/auth0-vue";
 import { RouteRecordRaw, createRouter, createWebHistory } from "vue-router";
 
 const routes: RouteRecordRaw[] = [
   {
     path: "/",
-    component: () => import("./pages/app/app.container.vue"),
+    component: () => import("./views/app/app.container.vue"),
     children: [
       {
         path: "/albums",
-        component: () => import("./pages/app/albums.page.vue"),
+        component: () => import("./views/app/albums.page.vue"),
       },
-      { path: "/", component: () => import("./pages/app/photos.page.vue") },
+      { path: "/", component: () => import("./views/app/photos.page.vue") },
     ],
+    beforeEnter: authGuard,
   },
   {
     path: "/auth/login",
-    component: () => import("./pages/auth/login.page.vue"),
+    name: "login",
+    component: () => import("./views/auth/login.page.vue"),
   },
   {
     path: "/:catchAll(.*)",

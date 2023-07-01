@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import { useQuery } from '@tanstack/vue-query';
-import { IMAGES_QUERY_KEY, fetchImages, useAPIClient } from '../../api';
+import { IMAGES_QUERY_KEY, fetchImages } from '../../api';
 
 
-const client = useAPIClient()
 
-const fetchImagesFn = () => fetchImages(client)
+const fetchImagesFn = () => fetchImages()
 
 
 

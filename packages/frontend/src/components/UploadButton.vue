@@ -1,17 +1,16 @@
 <script setup lang="ts">
 import { ref } from "vue"
-import { uploadImages, useAPIClient } from "../api";
+import { uploadImages } from "../api";
 import { useQueryClient } from "@tanstack/vue-query";
 
 const input = ref<HTMLInputElement>(null as any as HTMLInputElement)
 
 const openFileExplorer = () => input.value?.click()
-const apiClient = useAPIClient()
 
 const queryClient = useQueryClient()
 const onChange = (event: Event) => {
     const fileList = (event.target as any).files as FileList;
-    uploadImages(apiClient, queryClient, fileList)
+    uploadImages(queryClient, fileList)
 };
 
 

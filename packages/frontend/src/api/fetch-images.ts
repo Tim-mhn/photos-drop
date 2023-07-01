@@ -1,7 +1,7 @@
-import { APIClient } from "./client";
+import { apiClient } from "./client";
 import { Images } from "@shared";
 import { IMAGES_API_ENDPOINT } from "./endpoints";
 
-export async function fetchImages(client: APIClient) {
-  return client.get<Images>(IMAGES_API_ENDPOINT);
+export async function fetchImages() {
+  return apiClient.get<Images>(IMAGES_API_ENDPOINT);
 }

@@ -12,11 +12,16 @@ const login = async () => {
     catch (err) { console.error(err) }
 }
 
-const logoutFn = () => logout({
-    logoutParams: {
-        returnTo: window.location.origin,
-    }
-})
+
+const logoutAndRedirect = async () => {
+    await logout({
+
+        logoutParams: {
+            returnTo: `${import.meta.env.VITE_APP_BASE_URL}/auth/login`
+        }
+
+    });
+}
 
 
 </script>
@@ -29,7 +34,7 @@ const logoutFn = () => logout({
             <button v-if="!isAuthenticated" @click="login">Login</button>
 
             <div v-if="isAuthenticated"> {{ user?.name }}</div>
-            <button v-if="isAuthenticated" @click="logoutFn">Logout</button>
+            <button v-if="isAuthenticated" @click="logoutAndRedirect">Logout</button>
         </div>
     </div>
 </template>

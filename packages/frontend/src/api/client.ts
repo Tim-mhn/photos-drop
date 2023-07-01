@@ -1,12 +1,6 @@
 import { Auth0VueClient } from "@auth0/auth0-vue";
 import axios from "axios";
-import { inject, Plugin } from "vue";
-
-export function useAPIClient(): APIClient {
-  const client = inject<APIClient>(API_CLIENT_KEY);
-  if (!client) throw new Error("No APIClient has been provided");
-  return client;
-}
+import { auth0 } from "../auth";
 
 export const API_CLIENT_KEY = "API_CLIENT_KEY" as const;
 export class APIClient {
@@ -32,13 +26,4 @@ export class APIClient {
   }
 }
 
-export const createApiClient = (auth0: Auth0VueClient) => {
-  const apiClientPlugin: Plugin = {
-    install: (app, _options) => {
-      const apiClient = new APIClient(auth0);
-      app.provide(API_CLIENT_KEY, apiClient);
-    },
-  };
-
-  return apiClientPlugin;
-};
+export const apiClient = new APIClient(auth0);
