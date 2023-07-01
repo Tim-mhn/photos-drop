@@ -1,5 +1,5 @@
 import { Auth0VueClient } from "@auth0/auth0-vue";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { auth0 } from "../auth";
 
 export const API_CLIENT_KEY = "API_CLIENT_KEY" as const;
@@ -7,15 +7,23 @@ export class APIClient {
   constructor(private authClient: Auth0VueClient) {}
   async get<T>(url: string) {
     const headers = await this._buildAuthHeaders();
-    const res = await axios.get<T>(url, {
-      headers,
-    });
-    return res.data;
+    try {
+      const res = await axios.get<T>(url, {
+        headers,
+      });
+      return res.data;
+    } catch (err) {
+      this._throwHttpResponseError(err as AxiosError);
+    }
   }
 
   async post<I, O>(url: string, data?: I) {
     const headers = await this._buildAuthHeaders();
-    return axios.post<O>(url, data, { headers });
+    try {
+      return await axios.post<O>(url, data, { headers });
+    } catch (err) {
+      this._throwHttpResponseError(err as AxiosError);
+    }
   }
 
   private async _buildAuthHeaders() {
@@ -23,6 +31,11 @@ export class APIClient {
     return {
       Authorization: `Bearer ${token}`,
     };
+  }
+
+  private _throwHttpResponseError(err: AxiosError) {
+    const httpError = err.response?.data;
+    throw httpError;
   }
 }
 
