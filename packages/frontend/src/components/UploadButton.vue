@@ -27,7 +27,7 @@ const snackbarOpen = ref(false)
 </script>
 
 <template>
-    <button @click.prevent.stop="openFileExplorer">Upload</button>
+    <button @click.prevent.stop="openFileExplorer" type="button">Upload</button>
     <input className="hidden" type="file" accept="image/png, image/jpeg" :multiple="true" ref="input"
         :onChange.prevent.stop="onChange" />
 

@@ -11,7 +11,7 @@ import SideNav from "../../components/SideNav.vue"
         <SideNav />
 
         <div class="overflow-auto relative justify-center max-h-full min-w-[600px]">
-            <div class="w-full ">
+            <div class="w-full p-2">
                 <router-view></router-view>
             </div>
         </div>

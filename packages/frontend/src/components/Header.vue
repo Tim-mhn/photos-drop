@@ -31,10 +31,10 @@ const logoutAndRedirect = async () => {
         <div>Photos Drop</div>
         <div class="flex flex-grow justify-end gap-2">
             <UploadButton v-if="isAuthenticated" />
-            <button v-if="!isAuthenticated" @click="login">Login</button>
+            <button v-if="!isAuthenticated" @click="login" type="button">Login</button>
 
             <div v-if="isAuthenticated"> {{ user?.name }}</div>
-            <button v-if="isAuthenticated" @click="logoutAndRedirect">Logout</button>
+            <button v-if="isAuthenticated" @click="logoutAndRedirect" type="button">Logout</button>
         </div>
     </div>
 </template>
