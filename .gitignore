@@ -1,7 +1,7 @@
 # compiled output
 dist
 node_modules
-images
+packages/backend/images
 # Logs
 logs
 *.log
