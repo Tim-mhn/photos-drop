@@ -3,7 +3,7 @@ import { ImagesModule } from './images/module';
 import { ImagesController } from './images/images.controller';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
-import { isAuthMiddleware } from './auth.middleware';
+import { isAuthMiddleware } from './auth';
 
 const rootPath = join(__dirname, '..', 'images');
 @Module({
