@@ -16,6 +16,10 @@ export class FileSystemUserImagesRepository implements UserImagesRepository {
     await this.writeFile(USER_IMAGES_FILE, allImagesMap);
   }
 
+  async getImageUrls(photoIds: string[]): Promise<string[]> {
+    return photoIds;
+  }
+
   writeFile<I = any>(filename: string, data: I) {
     return writeFile(filename, JSON.stringify(data));
   }

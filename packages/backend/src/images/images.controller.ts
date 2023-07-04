@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   Get,
   Post,
@@ -12,17 +13,19 @@ import { FilesInterceptor } from '@nestjs/platform-express';
 import { Request, Response } from 'express';
 import {
   InvalidUploadedFilesType,
-  UploadFilesUsecase,
+  UploadFilesUseCase,
 } from './upload.use-case';
 import { GetAllImagesUseCase, UserImages } from './get-all-images.use-case';
 import { getCurrentUserId } from '../auth';
 import { UserImagesDTO } from '@shared';
+import { DownloadPhotosUseCase } from './download-photos.use-case';
 
 @Controller('images')
 export class ImagesController {
   constructor(
-    private uploadImageUsecase: UploadFilesUsecase,
+    private uploadImageUsecase: UploadFilesUseCase,
     private getImagesOfUserUseCase: GetAllImagesUseCase,
+    private downloadPhotosUsecase: DownloadPhotosUseCase,
   ) {}
 
   @Post('upload')
@@ -51,7 +54,27 @@ export class ImagesController {
       currentUserId,
     );
   }
+
+  @Post('download')
+  async downloadPhotos(
+    @Res() res: Response,
+    @Body() body: { photos: string[] },
+  ) {
+    const photoIds = body.photos;
+
+    const zipFile = await this.downloadPhotosUsecase.execute(photoIds);
+
+    const fileName = 'uploads.zip';
+    const fileType = 'application/zip';
+    res.writeHead(200, {
+      'Content-Disposition': `attachment; filename="${fileName}"`,
+      'Content-Type': fileType,
+    });
+    return res.end(zipFile);
+  }
 }
+
+const IMAGES_FOLDER_PATH = `${process.cwd()}/images/`;
 
 function buildUploadApiErrorResponse(err: Error): {
   errorResponse: any;

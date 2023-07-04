@@ -23,7 +23,7 @@ export class InvalidUploadedFilesType extends Error {
 export type GetImageDateFn = (f: Buffer) => Promise<Date>;
 
 @Injectable()
-export class UploadFilesUsecase {
+export class UploadFilesUseCase {
   private readonly SUPPORTED_MIME_TYPES = ['image/jpeg', 'image/png'];
   constructor(
     @Inject(IMAGE_REPOSITORY_TOKEN) private imageRepo: UserImagesRepository,

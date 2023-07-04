@@ -29,7 +29,7 @@ const logoutAndRedirect = async () => {
 <template >
     <div class="flex flex-row w-full shadow-sm border-black h-16 flex-shrink-0 px-4 py-1 justify-between items-center">
         <div>Photos Drop</div>
-        <div class="flex flex-grow justify-end gap-2">
+        <div class="flex flex-grow items-center justify-end gap-2">
             <UploadButton v-if="isAuthenticated" />
             <button v-if="!isAuthenticated" @click="login" type="button">Login</button>
 

@@ -3,7 +3,7 @@ import { ref } from "vue"
 import { uploadImages } from "../api";
 import { useQueryClient } from "@tanstack/vue-query";
 import { reactive } from "vue";
-
+import Button from "./Button.vue";
 const input = ref<HTMLInputElement>(null as any as HTMLInputElement)
 
 const openFileExplorer = () => input.value?.click()
@@ -27,7 +27,8 @@ const snackbarOpen = ref(false)
 </script>
 
 <template>
-    <button @click.prevent.stop="openFileExplorer" type="button">Upload</button>
+    <!-- <button @click.prevent.stop="openFileExplorer" type="button">Upload</button> -->
+    <Button @click="openFileExplorer">Upload</Button>
     <input className="hidden" type="file" accept="image/png, image/jpeg" :multiple="true" ref="input"
         :onChange.prevent.stop="onChange" />
 

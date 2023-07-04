@@ -1,4 +1,4 @@
-import { UploadFilesUsecase } from '../upload.use-case';
+import { UploadFilesUseCase } from '../upload.use-case';
 
 export class UploadImagesTestFixture {
   userImagesRepo = {
@@ -11,7 +11,7 @@ export class UploadImagesTestFixture {
   };
 
   retrieveImageDate = jest.fn();
-  usecase = new UploadFilesUsecase(
+  usecase = new UploadFilesUseCase(
     this.userImagesRepo,
     this.uploadRepo,
     this.retrieveImageDate,
