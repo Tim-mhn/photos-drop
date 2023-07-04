@@ -15,6 +15,7 @@ const skeletonsArray = new Array(20).fill("")
 
 const selectedPhotos = reactive<{ photos: Images }>({ photos: [] })
 
+const unselectAllPhotos = () => selectedPhotos.photos = []
 const togglePhotoSelection = (photo: Image) => {
     const isSelected = !!selectedPhotos.photos.find(p => p.id === photo.id)
     if (!isSelected) selectedPhotos.photos.push(photo)
@@ -33,7 +34,8 @@ const selectedPhotoIds = computed(() => selectedPhotos.photos.map(p => p.id))
     <div class="p-2 flex flex-col gap-4">
 
 
-        <PhotosBulkActions v-if="selectedPhotos.photos.length > 0" :selected-photos="selectedPhotos.photos" />
+        <PhotosBulkActions v-if="selectedPhotos.photos.length > 0" :selected-photos="selectedPhotos.photos"
+            @photos-downloaded="unselectAllPhotos" />
 
         <div class="flex flex-col overflow-hidden gap-4">
 

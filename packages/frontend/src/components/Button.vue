@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { computed } from 'vue';
+
 type ButtonStyle = "flat" | "simple";
 type ButtonSize = "sm" | "md";
 type ButtonType = "submit" | "reset" | "button";
@@ -6,12 +8,13 @@ type ButtonType = "submit" | "reset" | "button";
 
 
 
-withDefaults(defineProps<Partial<{
+const props = withDefaults(defineProps<Partial<{
     style: ButtonStyle,
     size: ButtonSize,
     disabled: boolean,
     round: boolean
     type: ButtonType,
+    isLoading: boolean
     onClick: (e?: MouseEvent) => void
 }>>(), {
     style: "flat",
@@ -19,8 +22,15 @@ withDefaults(defineProps<Partial<{
     round: false,
     size: "md",
     type: "button",
+    isLoading: false
 }
 )
+
+
+
+
+const disabledOrLoading = computed(() => props.disabled || props.isLoading)
+
 </script>
 
 
@@ -35,8 +45,10 @@ withDefaults(defineProps<Partial<{
         'text-md': size === 'md',
         'text-fuchsia-600 hover:text-fuchsia-700 hover:underline hover:underline-offset-4 decoration-fuchsia-600 decoration-2':
             style === 'simple',
-        'pointer-events-none bg-gray-300': disabled,
-    }">
-        <slot></slot>
+        'pointer-events-none bg-gray-300': disabledOrLoading,
+    }" :disabled="disabledOrLoading">
+        <v-progress-circular v-if="isLoading" indeterminate :size="20"></v-progress-circular>
+        <slot v-else></slot>
+
     </button>
 </template>
