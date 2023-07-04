@@ -1,10 +1,10 @@
 import { AxiosResponse } from "axios";
 import { apiClient } from ".";
 import { saveAs } from "file-saver";
-import { Images } from "../../../shared/src";
+import { DownloadPhotosDTO, Images } from "@shared";
 
 export async function downloadPhotos(photos?: Images) {
-  const res = await apiClient.post<{ photos: string[] }, Blob>(
+  const res = await apiClient.post<DownloadPhotosDTO, Blob>(
     "http://localhost:8000/images/download",
     { photos: photos?.map((p) => p.id) || [] },
     {

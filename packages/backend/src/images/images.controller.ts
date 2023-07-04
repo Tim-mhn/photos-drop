@@ -17,7 +17,7 @@ import {
 } from './upload.use-case';
 import { GetAllImagesUseCase, UserImages } from './get-all-images.use-case';
 import { getCurrentUserId } from '../auth';
-import { UserImagesDTO } from '@shared';
+import { DownloadPhotosDTO, UserImagesDTO } from '@shared';
 import { DownloadPhotosUseCase } from './download-photos.use-case';
 
 @Controller('images')
@@ -56,10 +56,7 @@ export class ImagesController {
   }
 
   @Post('download')
-  async downloadPhotos(
-    @Res() res: Response,
-    @Body() body: { photos: string[] },
-  ) {
+  async downloadPhotos(@Res() res: Response, @Body() body: DownloadPhotosDTO) {
     const photoIds = body.photos;
 
     const zipFile = await this.downloadPhotosUsecase.execute(photoIds);
