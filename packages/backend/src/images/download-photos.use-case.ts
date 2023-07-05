@@ -11,7 +11,9 @@ export class DownloadPhotosUseCase {
     private userImagesRepository: UserImagesRepository,
   ) {}
 
-  async execute(photoIds: string[]): Promise<Buffer> {
+  async execute(
+    photoIds: string[],
+  ): Promise<{ buffer: Buffer; filename: string; filetype: string }> {
     if (photoIds.length === 0)
       throw new Error('empty list of photos to be downloaded');
     const photoUrls = await this.userImagesRepository.getImageUrls(photoIds);
@@ -20,9 +22,29 @@ export class DownloadPhotosUseCase {
       urls: photoUrls,
     });
 
-    if (photoBuffers.length === 1) return photoBuffers[0];
+    if (photoBuffers.length === 1) {
+      const singleBuffer = photoBuffers[0].buffer;
 
-    return this._buildZipFile({ photoBuffers, photoIds });
+      // 'file-type' package is only exposed as ESM and Nestjs compiles everything as CommonJS
+      // this is one of the solutions to use ES-only modules in a CommonJS build
+      const fileTypeFromBuffer = await eval(`import('file-type')`);
+
+      const filetype = (await fileTypeFromBuffer.fileTypeFromBuffer(
+        singleBuffer,
+      )) || { ext: 'jpg' };
+
+      return {
+        buffer: photoBuffers[0],
+        filename: `image.${filetype.ext}`,
+        filetype: `application/${filetype.ext}`,
+      };
+    }
+
+    return {
+      buffer: this._buildZipFile({ photoBuffers, photoIds }),
+      filename: 'uploads.zip',
+      filetype: 'application/zip',
+    };
   }
 
   private async _getPhotoBuffersFromUrls({ urls }: { urls: string[] }) {

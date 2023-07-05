@@ -59,19 +59,16 @@ export class ImagesController {
   async downloadPhotos(@Res() res: Response, @Body() body: DownloadPhotosDTO) {
     const photoIds = body.photos;
 
-    const zipFile = await this.downloadPhotosUsecase.execute(photoIds);
+    const { buffer, filename, filetype } =
+      await this.downloadPhotosUsecase.execute(photoIds);
 
-    const fileName = 'uploads.zip';
-    const fileType = 'application/zip';
     res.writeHead(200, {
-      'Content-Disposition': `attachment; filename="${fileName}"`,
-      'Content-Type': fileType,
+      'Content-Disposition': `attachment; filename="${filename}"`,
+      'Content-Type': filetype,
     });
-    return res.end(zipFile);
+    return res.end(buffer);
   }
 }
-
-const IMAGES_FOLDER_PATH = `${process.cwd()}/images/`;
 
 function buildUploadApiErrorResponse(err: Error): {
   errorResponse: any;
