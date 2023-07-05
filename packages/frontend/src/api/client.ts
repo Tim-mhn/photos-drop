@@ -35,7 +35,9 @@ export class APIClient {
     },
   ): Promise<AxiosResponse<T>>;
 
-  async get<T>(url: string, opts: Partial<ApiOptions>) {
+  async get<T>(url: string): Promise<T>;
+
+  async get<T>(url: string, opts: Partial<ApiOptions> = this.DEFAULT_OPTIONS) {
     return this._request<T>("GET", url, opts);
   }
 
@@ -66,7 +68,7 @@ export class APIClient {
     data?: Input,
   ): Promise<AxiosResponse<T>>;
 
-  async _request<T = Blob, Input = any>(
+  async _request<_T = Blob, Input = any>(
     method: "GET" | "POST",
     url: string,
     opts: {
@@ -137,7 +139,13 @@ export class APIClient {
     },
   ): Promise<AxiosResponse<O>>;
 
-  async post<I, O>(url: string, data: I, opts: Partial<ApiOptions>) {
+  async post<I, O>(url: string, data: I): Promise<O>;
+
+  async post<I, O>(
+    url: string,
+    data: I,
+    opts: Partial<ApiOptions> = this.DEFAULT_OPTIONS,
+  ) {
     return this._request<O, I>("POST", url, opts, data);
   }
 

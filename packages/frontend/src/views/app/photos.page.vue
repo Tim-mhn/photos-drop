@@ -6,6 +6,7 @@ import { Image, Images } from '../../../../shared/src';
 import PhotosBulkActions from '../../components/PhotosBulkActions.vue';
 import { computed, reactive } from 'vue';
 import { ref } from 'vue';
+import { watch } from 'vue';
 const fetchImagesFn = () => fetchImages()
 
 
@@ -21,6 +22,7 @@ const togglePhotoSelection = (photo: Image) => {
     const isSelected = !!selectedPhotos.photos.find(p => p.id === photo.id)
     if (!isSelected) selectedPhotos.photos.push(photo)
     else selectedPhotos.photos = selectedPhotos.photos.filter(p => p.id !== photo.id)
+    fullScreenGallery.photo = photo
 
 }
 
@@ -28,9 +30,15 @@ const selectedPhotoIds = computed(() => selectedPhotos.photos.map(p => p.id))
 
 let dialog = ref(false)
 
-// const openDialog = () => dialog.value = true
+const openDialog = () => dialog.value = true
 
 
+
+let fullScreenGallery = reactive<{ photo: Image | null }>({ photo: null })
+
+const previousPhoto = () => fullScreenGallery.photo = data?.value?.[0].images?.[0] as Image
+
+const nextPhoto = () => fullScreenGallery.photo = data?.value?.[0].images?.[7] as Image
 
 </script>
 
@@ -68,48 +76,23 @@ let dialog = ref(false)
             </div>
         </div>
 
-        <!-- <v-dialog v-model="dialog" fullscreen :scrim="false" transition="dialog-bottom-transition">
-            <template v-slot:activator="{  }">
-                <v-btn color="primary" dark v-bind="props">
-                    Open Dialog
-                </v-btn>
-            </template>
-            <v-card>
-                <v-toolbar dark color="primary">
-                    <v-btn icon dark @click="dialog = false">
-                        <v-icon>mdi-close</v-icon>
-                    </v-btn>
-                    <v-toolbar-title>Settings</v-toolbar-title>
-                    <v-spacer></v-spacer>
-                    <v-toolbar-items>
-                        <v-btn variant="text" @click="dialog = false">
-                            Save
-                        </v-btn>
-                    </v-toolbar-items>
-                </v-toolbar>
-                <v-list lines="two" subheader>
-                    <v-list-subheader>User Controls</v-list-subheader>
-                    <v-list-item title="Content filtering"
-                        subtitle="Set the content filtering level to restrict apps that can be downloaded"></v-list-item>
-                    <v-list-item title="Password"
-                        subtitle="Require password for purchase or use password to restrict purchase"></v-list-item>
-                </v-list>
-                <v-divider></v-divider>
-                <v-list lines="two" subheader>
-                    <v-list-subheader>General</v-list-subheader>
-                    <v-list-item title="Notifications"
-                        subtitle="Notify me about updates to apps or games that I downloaded">
-                        notifs
-                    </v-list-item>
-                    <v-list-item title="Sound" subtitle="Auto-update apps at any time. Data charges may apply">
-                        sound
-                    </v-list-item>
-                    <v-list-item title="Auto-add widgets" subtitle="Automatically add home screen widgets">
-                        widgets
-                    </v-list-item>
-                </v-list>
-            </v-card>
-        </v-dialog> -->
+
+        <button> Open dialog
+            <v-dialog v-model="dialog" activator="parent" fullscreen :scrim="false" transition="dialog-bottom-transition"
+                class="bg-black text-white relative p-2 ">
+
+
+                <div class="absolute left-0 right-0 px-3 top-1/3 bottom-1/3 flex items-center justify-between  ">
+                    <div @click="previousPhoto">LEFT</div>
+                    <div @click="nextPhoto">RIGHT</div>
+                </div>
+                <div class="flex w-full h-full items-center justify-center">
+                    <img :src="fullScreenGallery.photo?.url" class="max-h-full w-auto object-contain" />
+
+                </div>
+
+            </v-dialog>
+        </button>
 
     </div>
 </template>

@@ -25,8 +25,10 @@ export class DownloadPhotosUseCase {
     if (photoBuffers.length === 1) {
       const singleBuffer = photoBuffers[0].buffer;
 
-      // 'file-type' package is only exposed as ESM and Nestjs compiles everything as CommonJS
-      // this is one of the solutions to use ES-only modules in a CommonJS build
+      /**
+       * 'file-type' package is only exposed as ESM and Nestjs compiles everything as CommonJS
+       * this is one of the solutions to use ES-only modules in a CommonJS build
+       */
       const fileTypeFromBuffer = await eval(`import('file-type')`);
 
       const filetype = (await fileTypeFromBuffer.fileTypeFromBuffer(

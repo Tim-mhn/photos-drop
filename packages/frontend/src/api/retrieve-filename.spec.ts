@@ -1,5 +1,6 @@
 import { AxiosResponse } from "axios";
 import { retrieveFilenameFromHttpResponse } from "./download-photos";
+import { describe, it, expect } from "vitest";
 
 describe("retrieveFilenameFromHttpResponse", () => {
   it("should correctly retrieve filename from HttpResponse", () => {

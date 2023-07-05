@@ -2,6 +2,7 @@ import { UserImagesRepository } from './image.repository';
 import { Image } from '@shared';
 import * as path from 'path';
 import { readFile, writeFile } from 'fs/promises';
+import { ReplaceDateByString } from '../types/replace-date';
 
 const USER_IMAGES_FILE = path.join(process.cwd(), 'user-images.json');
 export class FileSystemUserImagesRepository implements UserImagesRepository {
@@ -46,7 +47,3 @@ async function readJSONFile<O = any>(filename: string) {
 
   return JSON.parse(data) as O;
 }
-
-type ReplaceDateByString<T> = {
-  [K in keyof T]: T[K] extends Date ? string : T[K];
-};
