@@ -6,7 +6,9 @@ import { Image, Images } from '../../../../shared/src';
 import PhotosBulkActions from '../../components/PhotosBulkActions.vue';
 import { computed, reactive } from 'vue';
 import { ref } from 'vue';
+import { PhotosGallery } from "../../utils/photos-gallery"
 import { watch } from 'vue';
+import FullScreenPhotoGallery from '../../components/FullScreenPhotoGallery.vue';
 const fetchImagesFn = () => fetchImages()
 
 
@@ -22,23 +24,26 @@ const togglePhotoSelection = (photo: Image) => {
     const isSelected = !!selectedPhotos.photos.find(p => p.id === photo.id)
     if (!isSelected) selectedPhotos.photos.push(photo)
     else selectedPhotos.photos = selectedPhotos.photos.filter(p => p.id !== photo.id)
-    fullScreenGallery.photo = photo
+    photosGallery.showPhoto(photo)
 
 }
 
+const photosGallery = reactive(new PhotosGallery([]))
+
+watch(data, () => {
+    photosGallery.setUserPhotos(data.value || [])
+})
+
+
 const selectedPhotoIds = computed(() => selectedPhotos.photos.map(p => p.id))
 
-let dialog = ref(false)
 
-const openDialog = () => dialog.value = true
+const gallery = ref<typeof FullScreenPhotoGallery>(null as any as typeof FullScreenPhotoGallery)
+const openGalleryWithPhoto = (photo: Image) => {
+    gallery.value.openGalleryWithPhoto(photo)
 
+}
 
-
-let fullScreenGallery = reactive<{ photo: Image | null }>({ photo: null })
-
-const previousPhoto = () => fullScreenGallery.photo = data?.value?.[0].images?.[0] as Image
-
-const nextPhoto = () => fullScreenGallery.photo = data?.value?.[0].images?.[7] as Image
 
 </script>
 
@@ -50,7 +55,9 @@ const nextPhoto = () => fullScreenGallery.photo = data?.value?.[0].images?.[7] a
             @photos-downloaded="unselectAllPhotos" />
 
 
-        <!-- <button @click="openDialog">open dialog</button> -->
+        <FullScreenPhotoGallery ref="gallery" :user-photos="data || []" />
+
+
 
         <div class="flex flex-col overflow-hidden gap-4">
 
@@ -66,8 +73,9 @@ const nextPhoto = () => fullScreenGallery.photo = data?.value?.[0].images?.[7] a
 
 
 
-                    <SelectablePhoto v-for="photo of imagesOfDay?.images" :photo="photo"
-                        :selected="!!selectedPhotoIds.includes(photo.id)" @toggle-photo="togglePhotoSelection" />
+                    <SelectablePhoto @click="() => openGalleryWithPhoto(photo)" v-for="photo of imagesOfDay?.images"
+                        :photo="photo" :selected="!!selectedPhotoIds.includes(photo.id)"
+                        @toggle-photo="togglePhotoSelection" />
 
 
                     <hr />
@@ -77,22 +85,9 @@ const nextPhoto = () => fullScreenGallery.photo = data?.value?.[0].images?.[7] a
         </div>
 
 
-        <button> Open dialog
-            <v-dialog v-model="dialog" activator="parent" fullscreen :scrim="false" transition="dialog-bottom-transition"
-                class="bg-black text-white relative p-2 ">
 
 
-                <div class="absolute left-0 right-0 px-3 top-1/3 bottom-1/3 flex items-center justify-between  ">
-                    <div @click="previousPhoto">LEFT</div>
-                    <div @click="nextPhoto">RIGHT</div>
-                </div>
-                <div class="flex w-full h-full items-center justify-center">
-                    <img :src="fullScreenGallery.photo?.url" class="max-h-full w-auto object-contain" />
 
-                </div>
-
-            </v-dialog>
-        </button>
 
     </div>
 </template>
