@@ -2,12 +2,12 @@ import { Inject, Injectable } from '@nestjs/common';
 import { UserImagesRepository } from './image.repository';
 import axios from 'axios';
 import * as AdmZip from 'adm-zip';
-import { IMAGE_REPOSITORY_TOKEN } from './provider';
+import { USER_IMAGES_REPOSITORY_TOKEN } from './provider';
 
 @Injectable()
 export class DownloadPhotosUseCase {
   constructor(
-    @Inject(IMAGE_REPOSITORY_TOKEN)
+    @Inject(USER_IMAGES_REPOSITORY_TOKEN)
     private userImagesRepository: UserImagesRepository,
   ) {}
 

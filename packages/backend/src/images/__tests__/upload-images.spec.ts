@@ -43,7 +43,7 @@ describe('upload images', () => {
     it("should not save user's images if there is an error in the upload", async () => {
       testFixture
         .givenFiles([{ type: 'image/jpeg' }])
-        .givenUploadRepositoryWillThrow();
+        .givenImagesRepositoryWillThrow();
 
       await testFixture.whenUploading();
 

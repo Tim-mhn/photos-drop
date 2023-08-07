@@ -1,10 +1,14 @@
 import { GetAllImagesUseCase } from '../get-all-images.use-case';
-import { UserImagesRepository } from '../image.repository';
+import { ImagesRepository, UserImagesRepository } from '../image.repository';
+import { ImagesService } from '../images.service';
 
 describe('getUserImages', () => {
   let userImagesRepo: UserImagesRepository;
 
   let usecase: GetAllImagesUseCase;
+
+  let imagesRepo: ImagesRepository;
+  let imagesService: ImagesService;
 
   beforeEach(() => {
     userImagesRepo = {
@@ -12,7 +16,13 @@ describe('getUserImages', () => {
       saveImagesOfUser: jest.fn(),
     };
 
-    usecase = new GetAllImagesUseCase(userImagesRepo);
+    imagesRepo = {
+      getImagesUrls: async (ids: string[]) => ids,
+      uploadToStorage: jest.fn(),
+    };
+
+    imagesService = new ImagesService(imagesRepo);
+    usecase = new GetAllImagesUseCase(userImagesRepo, imagesService);
   });
   it('should return images grouped by date', async () => {
     const image1 = {
@@ -40,14 +50,18 @@ describe('getUserImages', () => {
       .mockImplementation(async () => [image1, image2, image3, image4]);
     const userImages = await usecase.getImagesOfUserGroupedByDate('');
 
-    expect(userImages).toEqual([
+    const imageIdsByDate = userImages.map(({ date, images }) => ({
+      date,
+      imagesIds: images.map((img) => img.id),
+    }));
+    expect(imageIdsByDate).toEqual([
       {
         date: new Date('2023-07-01'),
-        images: [image1, image2],
+        imagesIds: ['1', '2'],
       },
       {
         date: new Date('2023-06-30'),
-        images: [image3, image4],
+        imagesIds: ['3', '4'],
       },
     ]);
   });

@@ -6,12 +6,14 @@ import { join } from 'path';
 import { isAuthMiddleware } from './auth';
 import { AlbumsModule } from './albums/module';
 import { AlbumsController } from './albums/albums.controller';
+import { AlbumPhotosModule } from './album-photos/module';
 
 const rootPath = join(__dirname, '..', 'images');
 @Module({
   imports: [
     ImagesModule,
     AlbumsModule,
+    AlbumPhotosModule,
     ServeStaticModule.forRoot({
       rootPath: rootPath,
     }),

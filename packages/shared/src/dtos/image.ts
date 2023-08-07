@@ -1,7 +1,7 @@
 import { ReplaceDateByString } from "../../../backend/src/types/replace-date";
 
 export type ImageId = string;
-
+export type ImageWithoutUrl = { id: ImageId; date: Date };
 export type Image = { url: string; id: ImageId; date: Date };
 export type Images = Image[];
 

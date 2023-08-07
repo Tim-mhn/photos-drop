@@ -17,8 +17,6 @@ const DEFAULT_CURRENT_DATE_GETTER: CurrentDateGetter = {
 
 @Injectable()
 export class CreateAlbumUseCase {
-  albums: Album[] = [];
-
   constructor(
     @Inject(ALBUMS_REPOSITORY_TOKEN) private albumsRepository: AlbumsRepository,
     @Optional()

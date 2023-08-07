@@ -1,7 +1,7 @@
 import * as path from 'path';
 import { Album } from '../album';
 import { AlbumsRepository } from '../create-album.use-case';
-import { readFile, writeFile } from 'fs/promises';
+import { randomId, readJSONFile, writeJSONFile } from '../../common/fs';
 
 const ALBUMS_FILE = path.join(
   process.cwd(),
@@ -61,17 +61,3 @@ export class FileSystemAlbumsRepository implements AlbumsRepository {
     await writeJSONFile(ALBUMS_FILE, data);
   }
 }
-
-function writeJSONFile<I = any>(filename: string, data: I) {
-  return writeFile(filename, JSON.stringify(data));
-}
-
-async function readJSONFile<O = any>(filename: string) {
-  const data = await readFile(filename, {
-    encoding: 'utf-8',
-  });
-
-  return JSON.parse(data) as O;
-}
-
-const randomId = () => (Math.random() + 1).toString(36).substring(2);

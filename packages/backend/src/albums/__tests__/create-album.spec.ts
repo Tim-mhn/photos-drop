@@ -34,13 +34,4 @@ describe('Create album', () => {
 
     expect(album.creationDate).toEqual(date);
   });
-
-  //   it('should throw an error if the album"s owner doesn"t exist', async () => {
-  //     fixture.givenAlbumsAre([]).givenUserDoesNotExist({ id: '123' });
-
-  //     const createAlbumFn = () =>
-  //       fixture.whenCreatingAlbum({ name: 'my new album', owner: { id: '123' } });
-
-  //     expect(createAlbumFn()).rejects.toThrowError(NonExistentAlbumOwner);
-  //   });
 });

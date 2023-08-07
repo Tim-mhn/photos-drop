@@ -1,9 +1,12 @@
 import { createWriteStream } from 'fs';
-import { FileUrl, UploadRepository } from './image.repository';
+import { FileUrl, ImagesRepository } from './image.repository';
 
 const IMAGES_FOLDER_PATH = `${process.cwd()}/images/`;
 
-export class FileSystemUploadRepository implements UploadRepository {
+export class FileSystemImagesRepository implements ImagesRepository {
+  async getImagesUrls(photosIds: string[]): Promise<string[]> {
+    return photosIds;
+  }
   async uploadToStorage(files: Express.Multer.File[]): Promise<FileUrl[]> {
     const uploadFilesPromises = files.map((f) =>
       this._uploadOneFileToStorage(f),

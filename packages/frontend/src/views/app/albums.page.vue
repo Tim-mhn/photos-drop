@@ -6,10 +6,12 @@ import CreateAlbumButton from '../../components/CreateAlbumButton.vue';
 
 
 
-const { data: albums } = useQuery({
+const { data: albums, isLoading } = useQuery({
     queryKey: ["albums"],
     queryFn: getUserAlbums,
 })
+
+const skeletonsArray = new Array(20).fill("")
 
 
 
@@ -31,6 +33,10 @@ const { data: albums } = useQuery({
                 <div class="text-md font-bold text-fuchsia-800"> {{ album.name }}</div>
 
             </div>
+
+            <template v-if="isLoading">
+                <div class="bg-slate-200 animate-pulse h-64 w-64" v-for="_ of skeletonsArray"></div>
+            </template>
         </div>
     </div>
 </template>

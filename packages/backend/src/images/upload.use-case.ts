@@ -1,7 +1,11 @@
 import { Inject, Injectable, Optional } from '@nestjs/common';
-import { IMAGE_REPOSITORY_TOKEN, UPLOAD_REPOSITORY_TOKEN } from './provider';
-import { UserImagesRepository, UploadRepository } from './image.repository';
+import {
+  USER_IMAGES_REPOSITORY_TOKEN,
+  UPLOAD_REPOSITORY_TOKEN,
+} from './provider';
+import { UserImagesRepository, ImagesRepository } from './image.repository';
 import { getImageDate } from './get-image-date';
+import { zipMap } from '../common/arrays';
 
 export class InvalidUploadedFilesType extends Error {
   public readonly invalidTypes: string[];
@@ -26,8 +30,9 @@ export type GetImageDateFn = (f: Buffer) => Promise<Date>;
 export class UploadFilesUseCase {
   private readonly SUPPORTED_MIME_TYPES = ['image/jpeg', 'image/png'];
   constructor(
-    @Inject(IMAGE_REPOSITORY_TOKEN) private imageRepo: UserImagesRepository,
-    @Inject(UPLOAD_REPOSITORY_TOKEN) private uploadRepo: UploadRepository,
+    @Inject(USER_IMAGES_REPOSITORY_TOKEN)
+    private imageRepo: UserImagesRepository,
+    @Inject(UPLOAD_REPOSITORY_TOKEN) private uploadRepo: ImagesRepository,
     @Optional() private getImageDateFn: GetImageDateFn = getImageDate,
   ) {}
 
@@ -59,20 +64,4 @@ export class UploadFilesUseCase {
   private _mimeTypeIsNotSupported(mimetype: string) {
     return !this.SUPPORTED_MIME_TYPES.includes(mimetype);
   }
-}
-
-function zipMap<T, U, V>(
-  arr1: T[],
-  arr2: U[],
-  callbackFn: (t: T, u: U) => V,
-): V[] {
-  if (arr1.length !== arr2.length)
-    throw new Error(
-      `[zip error]: arrays do not have the same length (${arr1.length} != ${arr2.length}`,
-    );
-
-  return arr1.map((t, index) => {
-    const u = arr2[index];
-    return callbackFn(t, u);
-  });
 }

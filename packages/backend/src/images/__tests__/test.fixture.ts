@@ -8,6 +8,7 @@ export class UploadImagesTestFixture {
 
   uploadRepo = {
     uploadToStorage: jest.fn(),
+    getImagesUrls: jest.fn(),
   };
 
   retrieveImageDate = jest.fn();
@@ -33,7 +34,7 @@ export class UploadImagesTestFixture {
     return this;
   }
 
-  givenUploadRepositoryWillThrow() {
+  givenImagesRepositoryWillThrow() {
     jest.spyOn(this.uploadRepo, 'uploadToStorage').mockImplementation(() => {
       throw new Error('error in upload');
     });

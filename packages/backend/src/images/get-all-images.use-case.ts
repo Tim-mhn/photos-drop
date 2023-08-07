@@ -1,18 +1,23 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { IMAGE_REPOSITORY_TOKEN } from './provider';
+import { USER_IMAGES_REPOSITORY_TOKEN } from './provider';
 import { UserImagesRepository } from './image.repository';
 import { Images } from '@shared';
+import { ImagesService } from './images.service';
 
 export type UserImages = { date: Date; images: Images }[];
 @Injectable()
 export class GetAllImagesUseCase {
   constructor(
-    @Inject(IMAGE_REPOSITORY_TOKEN) private imageRepo: UserImagesRepository,
+    @Inject(USER_IMAGES_REPOSITORY_TOKEN)
+    private userImagesRepo: UserImagesRepository,
+    private imagesService: ImagesService,
   ) {}
 
   async getImagesOfUserGroupedByDate(userId: string): Promise<UserImages> {
-    const allImages = await this.imageRepo.getImagesOfUser(userId);
-    return groupImagesByDay(allImages);
+    const allImages = await this.userImagesRepo.getImagesOfUser(userId);
+    const images = await this.imagesService.buildImagesWithUrls(allImages);
+
+    return groupImagesByDay(images);
   }
 }
 

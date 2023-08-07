@@ -1,4 +1,4 @@
-import { ImageId, Images } from '@shared';
+import { Image, ImageId } from '@shared';
 
 type ImageUrl = string;
 type ImageInput = {
@@ -6,13 +6,14 @@ type ImageInput = {
   date: Date;
 };
 export interface UserImagesRepository {
-  getImagesOfUser(userId?: string): Promise<Images>;
+  getImagesOfUser(userId?: string): Promise<Omit<Image, 'url'>[]>;
   saveImagesOfUser(userId: string, images: ImageInput[]): Promise<void>;
   getImageUrls?(photoIds: ImageId[]): Promise<string[]>;
 }
 
 export type FileUrl = string;
 
-export interface UploadRepository {
+export interface ImagesRepository {
   uploadToStorage(files: Express.Multer.File[]): Promise<FileUrl[]>;
+  getImagesUrls(photosIds: ImageId[]): Promise<string[]>;
 }

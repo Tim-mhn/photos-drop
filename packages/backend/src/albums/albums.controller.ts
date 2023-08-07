@@ -24,8 +24,6 @@ export class AlbumsController {
 
   @Get('')
   async getUserAlbums(@Req() req: Request): Promise<AlbumListDTO> {
-    console.log(req);
-
     const currentUserId = await getCurrentUserId(req);
 
     const userAlbums = await this.getUserAlbumsUseCase.execute({
