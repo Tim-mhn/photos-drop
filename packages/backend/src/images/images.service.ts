@@ -11,7 +11,6 @@ export class ImagesService {
   ) {}
 
   async buildImagesWithUrls(imagesWithoutUrls: ImageWithoutUrl[]) {
-    console.log(this.imagesRepo);
     const imagesIds = imagesWithoutUrls.map((img) => img.id);
     const imagesUrls = await this.imagesRepo.getImagesUrls(imagesIds);
 

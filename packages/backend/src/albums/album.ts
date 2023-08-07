@@ -20,4 +20,8 @@ export class Album implements IAlbum {
     if (name === '') throw new EmptyAlbumName();
     return new Album(name, currentDate, owner, id);
   }
+
+  isOwnedByUser({ userId }: { userId: string }) {
+    return this.owner.id === userId;
+  }
 }

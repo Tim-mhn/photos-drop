@@ -1,10 +1,11 @@
 import { Inject, Injectable, Optional } from '@nestjs/common';
-import { Album, CreateAlbumProps } from './album';
+import { Album, AlbumId, CreateAlbumProps } from './album';
 import { ALBUMS_REPOSITORY_TOKEN } from './providers';
 
 export interface AlbumsRepository {
   save(album: Album): Promise<void>;
   getAllAlbumsOfUser(owner: { id: string }): Promise<Album[]>;
+  getAlbumById(id: AlbumId): Promise<Album>;
 }
 
 export type CurrentDateGetter = {

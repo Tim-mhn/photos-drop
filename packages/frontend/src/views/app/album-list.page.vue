@@ -11,6 +11,8 @@ const { data: albums, isLoading } = useQuery({
     queryFn: getUserAlbums,
 })
 
+
+
 const skeletonsArray = new Array(20).fill("")
 
 
@@ -26,13 +28,15 @@ const skeletonsArray = new Array(20).fill("")
             <CreateAlbumButton />
         </div>
         <div class="flex flex-wrap gap-4 ">
-            <div v-for="album of albums" class="flex flex-col gap-2">
-                <img class="cursor-pointer border-2 border-solid border-fuchsia-100  hover:border-black  w-64 h-64 "
-                    src="http://localhost:8000/mgt9ibw152.jpg" />
+            <router-link v-for="album of albums" :to="'albums/' + album.id">
+                <div class="flex flex-col gap-2">
+                    <img class="cursor-pointer border-2 border-solid border-fuchsia-100  hover:border-black  w-64 h-64 "
+                        src="http://localhost:8000/mgt9ibw152.jpg" />
 
-                <div class="text-md font-bold text-fuchsia-800"> {{ album.name }}</div>
+                    <div class="text-md font-bold text-fuchsia-800"> {{ album.name }}</div>
 
-            </div>
+                </div>
+            </router-link>
 
             <template v-if="isLoading">
                 <div class="bg-slate-200 animate-pulse h-64 w-64" v-for="_ of skeletonsArray"></div>

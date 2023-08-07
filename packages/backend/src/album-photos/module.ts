@@ -3,9 +3,10 @@ import { AlbumPhotosService } from './add-photos-to-album.use-case';
 import { AlbumPhotosRepositoryProvider } from './providers';
 import { AlbumPhotosController } from './album-photos.controller';
 import { ImagesModule } from '../images/module';
+import { AlbumsModule } from '../albums/module';
 
 @Module({
-  imports: [ImagesModule],
+  imports: [ImagesModule, AlbumsModule],
   providers: [
     AlbumPhotosController,
     AlbumPhotosService,

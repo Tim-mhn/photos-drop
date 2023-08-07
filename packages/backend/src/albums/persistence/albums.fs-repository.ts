@@ -20,10 +20,27 @@ type AlbumPersistence = {
 type AlbumsPersistenceModel = Record<OwnerId, AlbumPersistence[]>;
 
 export class FileSystemAlbumsRepository implements AlbumsRepository {
+  async getAlbumById(id: string): Promise<Album> {
+    const albumsMap = await this._getUsersAlbumsMap();
+    for (const [ownerId, userAlbums] of Object.entries(albumsMap)) {
+      const album = userAlbums.find((alb) => alb.id === id);
+      if (album)
+        return Album.create({
+          currentDate: new Date(album.creationDate),
+          name: album.name,
+          id: album.id,
+          owner: {
+            id: ownerId,
+          },
+        });
+    }
+
+    throw new Error(`could not find album ${id}`);
+  }
   async save(album: Album): Promise<void> {
     const { creationDate, name, owner } = album;
     const albumPersistence: AlbumPersistence = {
-      creationDate: creationDate.toISOString(),
+      creationDate: creationDate?.toISOString(),
       id: randomId(),
       name,
     };
