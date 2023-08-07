@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import { useQuery } from '@tanstack/vue-query';
-import { getUserAlbums } from '../../api/albums';
-import { computed } from 'vue';
-import { IAlbum } from '../../../../shared/src/models';
-import Button from '../../components/Button.vue';
+import { createAlbum, getUserAlbums } from '../../api/albums';
+import CreateAlbumButton from '../../components/CreateAlbumButton.vue';
 
 
 
@@ -14,13 +12,16 @@ const { data: albums } = useQuery({
 })
 
 
+
+
+
 </script>
 
 <template>
     <div class="flex flex-col gap-4 p-2">
 
-        <div class="flex flex-grow items-center justify-end px-4">
-            <Button>Create album</Button>
+        <div class="flex flex-grow items-center justify-start ">
+            <CreateAlbumButton />
         </div>
         <div class="flex flex-wrap gap-4 ">
             <div v-for="album of albums" class="flex flex-col gap-2">

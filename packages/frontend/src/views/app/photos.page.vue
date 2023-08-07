@@ -52,7 +52,7 @@ const openGalleryWithPhoto = (photo: Image) => {
 
 
         <PhotosBulkActions v-if="selectedPhotos.photos.length > 0" :selected-photos="selectedPhotos.photos"
-            @photos-downloaded="unselectAllPhotos" @deselect-clicked="unselectAllPhotos" />
+            @photos-downloaded="unselectAllPhotos" @unselect-clicked="unselectAllPhotos" />
 
 
         <FullScreenPhotoGallery ref="gallery" :user-photos="data || []" />

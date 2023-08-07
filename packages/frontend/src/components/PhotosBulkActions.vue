@@ -7,7 +7,7 @@ import { useMutation } from '@tanstack/vue-query';
 
 const props = defineProps<{ selectedPhotos: Images }>()
 
-const emit = defineEmits<{ (e: 'photosDownloaded'): void, (e: 'deselectClicked'): void }>()
+const emit = defineEmits<{ (e: 'photosDownloaded'): void, (e: 'unselectClicked'): void }>()
 
 
 const { isLoading, mutate: downLoadPhotosFn } = useMutation({
@@ -18,7 +18,7 @@ const { isLoading, mutate: downLoadPhotosFn } = useMutation({
 
 })
 
-const emitDeselectClicked = () => emit('deselectClicked')
+const emitUnselectClicked = () => emit('unselectClicked')
 
 
 
@@ -30,7 +30,7 @@ const emitDeselectClicked = () => emit('deselectClicked')
     <div class="flex flex-grow">
         <div class="flex items-center font-medium text-2xl text-fuchsia-800 gap-4">
             <div>{{ selectedPhotos.length }} selected</div>
-            <Button size="sm" @click="emitDeselectClicked">Unselect</Button>
+            <Button size="sm" @click="emitUnselectClicked">Unselect</Button>
 
 
         </div>
