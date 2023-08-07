@@ -1,4 +1,4 @@
-import { Image, Images, UserImages } from "@shared";
+import { Image, Images, UserImages } from "../../../shared/src";
 
 export class PhotosGallery {
   constructor(private photos: Images) {}

@@ -1,4 +1,4 @@
-import { Image, UserImages } from "@shared";
+import { Image, UserImages } from "../../../shared/src";
 import { describe, it, expect, beforeEach } from "vitest";
 import { PhotosGallery } from "./photos-gallery";
 

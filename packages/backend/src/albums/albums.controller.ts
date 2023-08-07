@@ -3,6 +3,7 @@ import { CreateAlbumUseCase } from './create-album.use-case';
 import { GetUserAlbumsUseCase } from './get-user-albums.use-case';
 import { Request } from 'express';
 import { getCurrentUserId } from '../auth';
+import { AlbumListDTO, CreateAlbumDTO } from '@shared/dtos';
 
 @Controller('albums')
 export class AlbumsController {
@@ -12,7 +13,7 @@ export class AlbumsController {
   ) {}
 
   @Post('')
-  async createAlbum(@Body() { name }: { name: string }, @Req() req: Request) {
+  async createAlbum(@Body() { name }: CreateAlbumDTO, @Req() req: Request) {
     const currentUserId = await getCurrentUserId(req);
 
     return this.createAlbumsUseCase.execute({
@@ -22,15 +23,14 @@ export class AlbumsController {
   }
 
   @Get('')
-  async getUserAlbums(@Req() req: Request) {
+  async getUserAlbums(@Req() req: Request): Promise<AlbumListDTO> {
     const currentUserId = await getCurrentUserId(req);
 
     const userAlbums = await this.getUserAlbumsUseCase.execute({
       id: currentUserId,
     });
-    console.log(userAlbums);
     return userAlbums.map(({ creationDate, name, id }) => ({
-      creationDate,
+      creationDate: creationDate.toISOString(),
       name,
       id,
     }));

@@ -1,4 +1,5 @@
 import { EmptyAlbumName } from './album.errors';
+import { IAlbum } from '@shared/models';
 
 export type CreateAlbumProps = {
   name: string;
@@ -6,7 +7,7 @@ export type CreateAlbumProps = {
   currentDate: Date;
   id?: string;
 };
-export class Album {
+export class Album implements IAlbum {
   private constructor(
     public readonly name: string,
     public readonly creationDate: Date = new Date(Date.now()),

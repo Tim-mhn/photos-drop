@@ -1,4 +1,4 @@
-import { Image, Images } from "@shared";
+import { Image, Images } from "../../../shared/src";
 
 export function getNextPhotoInGallery({
   photos,

@@ -27,7 +27,6 @@ export class MockPhotosApi implements PhotosApi {
         ];
       });
 
-      console.log("uploading end");
       console.groupEnd();
     } catch (err) {
       console.error(err);

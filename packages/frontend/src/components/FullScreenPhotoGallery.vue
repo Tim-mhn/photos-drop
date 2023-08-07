@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Image, UserImages } from '@shared';
+import { Image, UserImages } from '../../../shared/src';
 import { reactive } from 'vue';
 import { watch } from 'vue';
 import { PhotosGallery } from '../utils/photos-gallery';
