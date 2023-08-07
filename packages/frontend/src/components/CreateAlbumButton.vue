@@ -15,18 +15,19 @@ const formData = reactive({
 
 const closeDialog = () => createAlbumDialogOpen.value = false
 
-const { mutate, isLoading } = useMutation({
+const { mutate: createAlbumFn, isLoading } = useMutation({
     mutationFn: createAlbum,
     onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ["albums"] });
-        closeDialog()
+        closeDialog();
+        resetForm()
     },
 })
 
-const createAlbumFn = (payload: any) => {
-    console.log(payload);
-    mutate(payload)
-}
+
+const resetForm = () => resetButton.value?.click()
+
+const resetButton = ref<HTMLButtonElement>()
 
 
 const requiredValidator = (fieldName: string) => (v: string) => !!v || `${fieldName} is required`
@@ -47,6 +48,8 @@ const formValid = ref(false)
 
                 <Button type="submit" :disabled="!formValid" :full-width="true" :is-loading="isLoading"> Create
                     album</Button>
+
+                <button type="reset" class="hidden" ref="resetButton"></button>
             </v-form>
 
         </div>
