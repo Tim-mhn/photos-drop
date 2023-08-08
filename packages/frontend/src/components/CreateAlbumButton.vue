@@ -3,7 +3,7 @@ import { reactive } from 'vue';
 import { createAlbum } from '../api/albums';
 import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import { ref } from 'vue';
-import Button from './Button.vue';
+import Button from '../shared/ui/Button.vue';
 import Dialog from './Dialog.vue';
 
 const queryClient = useQueryClient()

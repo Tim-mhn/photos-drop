@@ -36,8 +36,10 @@ export class AlbumPhotosController {
         photosIds,
         userId,
       });
+
+      return res.status(201).json();
     } catch (err) {
-      this._returnApiErrorResponse(res, err);
+      return this._returnApiErrorResponse(res, err);
     }
   }
 

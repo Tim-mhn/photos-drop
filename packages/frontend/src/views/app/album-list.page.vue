@@ -33,7 +33,11 @@ const skeletonsArray = new Array(20).fill("")
                     <img class="cursor-pointer border-2 border-solid border-fuchsia-100  hover:border-black  w-64 h-64 "
                         src="http://localhost:8000/mgt9ibw152.jpg" />
 
-                    <div class="text-md font-bold text-fuchsia-800"> {{ album.name }}</div>
+                    <div>
+                        <div class="text-md font-bold text-fuchsia-900"> {{ album.name }}</div>
+                        <div class="text-sm font-thin text-fuchsia-800"> {{ album.photosCount }} photos</div>
+
+                    </div>
 
                 </div>
             </router-link>

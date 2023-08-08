@@ -7,6 +7,7 @@ export type CreateAlbumProps = {
   owner: { id: string };
   currentDate: Date;
   id?: AlbumId;
+  photosCount?: number;
 };
 export class Album implements IAlbum {
   private constructor(
@@ -14,11 +15,18 @@ export class Album implements IAlbum {
     public readonly creationDate: Date = new Date(Date.now()),
     public readonly owner: { id: string },
     public readonly id?: AlbumId,
+    public readonly photosCount: number = 0,
   ) {}
 
-  static create({ name, currentDate, owner, id }: CreateAlbumProps) {
+  static create({
+    name,
+    currentDate,
+    owner,
+    id,
+    photosCount,
+  }: CreateAlbumProps) {
     if (name === '') throw new EmptyAlbumName();
-    return new Album(name, currentDate, owner, id);
+    return new Album(name, currentDate, owner, id, photosCount);
   }
 
   isOwnedByUser({ userId }: { userId: string }) {

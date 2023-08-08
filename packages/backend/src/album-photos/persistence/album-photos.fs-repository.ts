@@ -1,18 +1,13 @@
-import * as path from 'path';
 import { AlbumId } from '../../albums/album';
 import { ImageId } from '../../../../shared/src';
 import { AlbumPhotosRepository } from '../add-photos-to-album.use-case';
 import { readJSONFile, writeJSONFile } from '../../common/fs';
+import {
+  ALBUMS_FILE,
+  AlbumPersistenceModel,
+} from '../../albums/persistence/albums.fs-2-repository';
 
-const ALBUM_PHOTOS_FILE = path.join(
-  process.cwd(),
-  'src',
-  'album-photos',
-  'persistence',
-  'album-photos.json',
-);
-
-type AlbumPhotoPersistenceModel = Record<AlbumId, ImageId[]>;
+const ALBUM_PHOTOS_FILE = ALBUMS_FILE;
 
 export class FileSystemAlbumPhotosRepository implements AlbumPhotosRepository {
   async addPhotosToAlbum({
@@ -22,22 +17,21 @@ export class FileSystemAlbumPhotosRepository implements AlbumPhotosRepository {
     albumId: AlbumId;
     photosIds: ImageId[];
   }): Promise<void> {
-    const data = await this._getAllData();
-    const albumPhotos = data[albumId] || [];
-    const allPhotos = [...albumPhotos, ...photosIds];
-    data[albumId] = allPhotos;
-    await writeJSONFile(ALBUM_PHOTOS_FILE, data);
+    const albums = await this._getAllData();
+    const album = albums.find((alb) => alb.id === albumId);
+    album.photosIds.push(...photosIds);
+    await writeJSONFile(ALBUM_PHOTOS_FILE, albums);
   }
   async getAlbumPhotosIds({
     albumId,
   }: {
     albumId: AlbumId;
   }): Promise<ImageId[]> {
-    const data = await this._getAllData();
-    return data[albumId] || [];
+    const albums = await this._getAllData();
+    return albums.find((album) => album.id === albumId)?.photosIds;
   }
 
   private async _getAllData() {
-    return await readJSONFile<AlbumPhotoPersistenceModel>(ALBUM_PHOTOS_FILE);
+    return await readJSONFile<AlbumPersistenceModel>(ALBUM_PHOTOS_FILE);
   }
 }

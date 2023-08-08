@@ -32,6 +32,7 @@ export class FileSystemAlbumsRepository implements AlbumsRepository {
           owner: {
             id: ownerId,
           },
+          photosCount: 0,
         });
     }
 
@@ -63,6 +64,7 @@ export class FileSystemAlbumsRepository implements AlbumsRepository {
         name,
         owner,
         id,
+        photosCount: 0,
       }),
     );
   }

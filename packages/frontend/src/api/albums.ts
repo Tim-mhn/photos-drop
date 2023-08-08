@@ -12,11 +12,12 @@ export async function createAlbum(data: CreateAlbumDTO) {
 }
 
 function mapDtoToAlbum(dto: AlbumDTO): IAlbum {
-  const { creationDate, id, name } = dto;
+  const { creationDate, id, name, photosCount } = dto;
   return {
     id,
     name,
     creationDate: new Date(creationDate),
+    photosCount,
   };
 }
 export async function getUserAlbums(): Promise<IAlbum[]> {

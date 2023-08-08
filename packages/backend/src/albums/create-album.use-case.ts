@@ -24,13 +24,13 @@ export class CreateAlbumUseCase {
     private currentDateGetter: CurrentDateGetter = DEFAULT_CURRENT_DATE_GETTER,
   ) {}
 
-  execute(props: Omit<CreateAlbumProps, 'currentDate'>) {
+  async execute(props: Omit<CreateAlbumProps, 'currentDate' | 'photosCount'>) {
     const currentDate = this.currentDateGetter.getCurrentDate();
 
     const album = Album.create({
       ...props,
       currentDate,
     });
-    this.albumsRepository.save(album);
+    await this.albumsRepository.save(album);
   }
 }

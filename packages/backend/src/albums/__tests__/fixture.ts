@@ -36,6 +36,7 @@ export class AlbumsTestFixture {
       owner: {
         id: 'owner-id',
       },
+      photosCount: 0,
     };
 
     const props = {

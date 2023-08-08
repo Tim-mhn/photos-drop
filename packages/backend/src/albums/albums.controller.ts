@@ -27,7 +27,7 @@ export class AlbumsController {
   async createAlbum(@Body() { name }: CreateAlbumDTO, @Req() req: Request) {
     const currentUserId = await getCurrentUserId(req);
 
-    return this.createAlbumsUseCase.execute({
+    await this.createAlbumsUseCase.execute({
       name,
       owner: { id: currentUserId },
     });
@@ -40,10 +40,11 @@ export class AlbumsController {
     const userAlbums = await this.getUserAlbumsUseCase.execute({
       id: currentUserId,
     });
-    return userAlbums.map(({ creationDate, name, id }) => ({
+    return userAlbums.map(({ creationDate, name, id, photosCount }) => ({
       creationDate: creationDate.toISOString(),
       name,
       id,
+      photosCount,
     }));
   }
 

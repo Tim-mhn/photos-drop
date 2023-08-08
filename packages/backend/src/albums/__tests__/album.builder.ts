@@ -25,6 +25,7 @@ class AlbumBuilder {
       name: this.name,
       owner: this.owner,
       currentDate: this.creationDate,
+      photosCount: 0,
     });
   }
 }
