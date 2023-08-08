@@ -2,7 +2,7 @@
 import { useMutation, useQuery } from '@tanstack/vue-query';
 import { addPhotosToAlbum } from '../api/album-photos';
 import { ref } from "vue"
-import Dialog from './Dialog.vue';
+import Dialog from '../shared/ui/Dialog.vue';
 import { IAlbum } from '../../../shared/src/models';
 import { Images } from '../../../shared/src';
 import { getUserAlbums } from '../api/albums';

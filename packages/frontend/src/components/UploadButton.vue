@@ -3,7 +3,7 @@ import { ref } from "vue"
 import { uploadImages } from "../api";
 import { useQueryClient } from "@tanstack/vue-query";
 import { reactive } from "vue";
-import Button from "./Button.vue";
+import Button from "../shared/ui/Button.vue";
 const input = ref<HTMLInputElement>(null as any as HTMLInputElement)
 
 const openFileExplorer = () => input.value?.click()
