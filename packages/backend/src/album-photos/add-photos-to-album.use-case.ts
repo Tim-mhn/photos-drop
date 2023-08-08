@@ -19,7 +19,11 @@ export interface AlbumPhotosRepository {
   getAlbumPhotosIds({ albumId }: { albumId: AlbumId }): Promise<ImageId[]>;
 }
 
-export class UserUnauthorizedToEditAlbum extends Error {}
+export class UserUnauthorizedToEditAlbum extends Error {
+  constructor(albumId: string, userId: string) {
+    super(`User ${userId} is not the owner of album ${albumId}`);
+  }
+}
 @Injectable()
 export class AlbumPhotosService {
   constructor(
@@ -36,7 +40,7 @@ export class AlbumPhotosService {
   }: {
     albumId: AlbumId;
     photosIds: ImageId[];
-    userId?: string;
+    userId: string;
   }) {
     await this._checkUserOwnsAlbum({ albumId, userId });
 
@@ -83,6 +87,6 @@ export class AlbumPhotosService {
   }) {
     const album = await this.albumsRepo.getAlbumById(albumId);
     if (!album.isOwnedByUser({ userId }))
-      throw new UserUnauthorizedToEditAlbum();
+      throw new UserUnauthorizedToEditAlbum(albumId, userId);
   }
 }

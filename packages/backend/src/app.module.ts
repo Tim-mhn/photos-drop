@@ -7,6 +7,7 @@ import { isAuthMiddleware } from './auth';
 import { AlbumsModule } from './albums/module';
 import { AlbumsController } from './albums/albums.controller';
 import { AlbumPhotosModule } from './album-photos/module';
+import { AlbumPhotosController } from './album-photos/album-photos.controller';
 
 const rootPath = join(__dirname, '..', 'images');
 @Module({
@@ -25,5 +26,6 @@ export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(isAuthMiddleware).forRoutes(ImagesController);
     consumer.apply(isAuthMiddleware).forRoutes(AlbumsController);
+    consumer.apply(isAuthMiddleware).forRoutes(AlbumPhotosController);
   }
 }
